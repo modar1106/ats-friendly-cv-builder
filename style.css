@@ -421,7 +421,7 @@ body {
 
 /* Floating Zoom Controls */
 .zoom-controls {
-    position: absolute;
+    position: fixed;
     bottom: 24px;
     right: 24px;
     background: rgba(15, 23, 42, 0.95);
@@ -432,7 +432,7 @@ body {
     align-items: center;
     gap: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    z-index: 100;
+    z-index: 500;
     backdrop-filter: blur(8px);
 }
 .zoom-controls button {
@@ -573,8 +573,10 @@ body {
     margin-left: 12px;
 }
 .cv-entry ul {
-    margin-left: 18px;
     margin-top: 2px;
+    margin-left: 0;
+    padding-left: 18px;
+    list-style: disc;
 }
 .cv-entry ul li {
     font-size: 10.5pt;
@@ -585,9 +587,10 @@ body {
 
 /* CV Skills */
 .cv-skills-list {
+    margin-top: 2px;
     margin-left: 0;
-    list-style: disc;
     padding-left: 18px;
+    list-style: disc;
 }
 .cv-skills-list li {
     font-size: 10.5pt;
@@ -773,6 +776,12 @@ body {
     .form-row {
         flex-direction: column;
         gap: 0;
+    }
+    .zoom-controls {
+        bottom: 16px;
+        right: 16px;
+        padding: 4px 10px;
+        gap: 8px;
     }
 }
 

@@ -5,64 +5,94 @@
 const DEFAULT_DATA = {
     language: 'id',
     header: {
-        name: 'Nama Kamu',
-        email: 'email@example.com',
-        phone: '+62 812-3456-7890',
-        website: 'linkedin.com/in/username',
-        address: 'Jakarta, Indonesia'
+        name: 'Mohamad Haidar',
+        email: 'mohamadhaidar0604@gmail.com',
+        phone: '+62 87781303342',
+        website: 'm-haidar.my.id',
+        address: 'Serang, Banten, Indonesia'
     },
-    summary: 'Developer Full-Stack yang berdedikasi tinggi dengan pengalaman lebih dari 3 tahun dalam membangun aplikasi web yang skalabel dan efisien. Memiliki keahlian mendalam pada JavaScript, Node.js, dan React, serta berpengalaman dalam merancang arsitektur basis data yang optimal. Berkomitmen untuk terus mempelajari teknologi terbaru dan berkolaborasi dalam tim untuk menghadirkan solusi teknologi terbaik bagi bisnis.',
+    summary: 'Mahasiswa IT yang bermotivasi tinggi dan terpilih dalam program bergengsi Bangkit Academy, dengan keahlian serbaguna di bidang Pengembangan Mobile dan Web. Memiliki pengalaman praktis dalam mengembangkan aplikasi Android menggunakan Kotlin serta membangun solusi web yang kuat, termasuk proyek terbaru yang berfokus pada Manajemen Tiket dan Inventaris. Menggabungkan kemahiran teknis dengan keterampilan strategi kreatif yang diperoleh sebagai Campus Ambassador. Berkomitmen untuk terus belajar dan mencari peluang magang untuk memberikan inovasi yang berdampak dalam tim teknik yang dinamis.',
     education: [
         {
-            institution: 'Universitas Indonesia',
-            location: 'Depok, Jawa Barat',
-            degree: 'Sarjana Ilmu Komputer',
-            date: '2019 - 2023',
+            institution: 'Universitas Serang Raya',
+            location: 'Serang, Banten',
+            degree: 'Sarjana Teknologi Informasi (GPA: 3.7 / 4.00)',
+            date: 'Sep 2022 - Jul 2026',
             bullets: [
-                'Lulus dengan predikat Cum Laude (IPK 3.85).',
-                'Mengembangkan sistem manajemen perpustakaan kampus berbasis web sebagai proyek akhir.',
-                'Aktif sebagai Asisten Dosen untuk mata kuliah Struktur Data dan Algoritma.'
+                'Aktif terlibat dalam kegiatan akademik dan ekstrakurikuler selama masa kuliah.',
+                'Merancang dan mengembangkan SmartFarm, sebuah aplikasi Android yang berfokus pada solusi pertanian cerdas.',
+                'Merancang Looka Food, sebuah proyek UI/UX untuk aplikasi kuliner.',
+                'Terpilih sebagai Campus Ambassador, bertugas sebagai Administrator Media Sosial dan Desainer.',
+                'Penerima Program MSIB Angkatan 7, diterima di Bangkit Academy oleh Google, GoTo, dan Traveloka.'
+            ]
+        },
+        {
+            institution: 'SMAN 1 Rangkasbitung',
+            location: 'Rangkasbitung, Banten',
+            degree: 'Sekolah Menengah Atas',
+            date: 'Mei 2019 - Mei 2022',
+            bullets: [
+                'Meraih Peringkat ke-4 dalam Kompetisi Sains Nasional tingkat Kabupaten (KSN-K) bidang Astronomi.',
+                'Ketua Majelis Perwakilan Kelas (MPK) dan Ketua Pasukan Pengibar Bendera Sekolah (PASKIBRA).'
             ]
         }
     ],
     workExperience: [
         {
-            company: 'Techindo Solusi Digital',
-            location: 'Jakarta',
-            role: 'Full-Stack Developer',
-            date: 'Jan 2024 - Sekarang',
+            company: 'USSI Itqan Tekno Solusi',
+            location: 'Indonesia',
+            role: 'Fullstack Web Developer — Magang',
+            date: 'Feb 2026 - Apr 2026',
             bullets: [
-                'Membangun dan memelihara aplikasi e-commerce menggunakan React.js dan Node.js, meningkatkan retensi pengguna sebesar 15%.',
-                'Mengoptimalkan kueri basis data PostgreSQL yang mempercepat waktu pemuatan halaman hingga 30%.',
-                'Memimpin tim kecil beranggotakan 4 pengembang dalam merancang sistem integrasi pembayaran pihak ketiga.'
+                'Mengembangkan "TolongMenolong", sebuah platform crowdfunding yang dibangun dengan Next.js, mengintegrasikan DOKU Payment Gateway untuk memfasilitasi transaksi donasi yang aman dan otomatis.',
+                'Merancang migrasi profil resmi perusahaan dari WordPress ke Next.js, secara signifikan meningkatkan kecepatan pemuatan halaman, kinerja SEO, dan skalabilitas keseluruhan.',
+                'Berkolaborasi dalam pengembangan ujung-ke-ujung (end-to-end), mulai dari desain skema basis data hingga implementasi UI frontend, memastikan pengalaman pengguna yang mulus di berbagai platform web.',
+                'Meningkatkan pencitraan merek perusahaan dengan merancang dan mengedit Laporan Tahunan profesional menggunakan Canva, memastikan komunikasi visual berkualitas tinggi untuk para pemangku kepentingan.'
             ]
         }
     ],
     relatedExperiences: [
         {
-            company: 'Proyek Open Source - Admin Dashboard',
-            location: 'Remote',
-            role: 'Kontributor Utama',
-            date: 'Jun 2023 - Des 2023',
+            company: 'Bangkit Academy (Google, GoTo, Traveloka)',
+            location: 'Indonesia',
+            role: 'Mobile Development Cohort',
+            date: 'Sep 2024 - Jan 2025',
             bullets: [
-                'Mengembangkan komponen UI reusable yang ramah aksesibilitas menggunakan React dan Tailwind CSS.',
-                'Menulis dokumentasi API yang lengkap dan tutorial integrasi bagi pengguna baru repositori.'
+                'Memimpin pengembangan mobile untuk "SmartFarm", aplikasi pertanian yang dirancang untuk memberikan rekomendasi komoditas pangan berbasis kecerdasan buatan (AI) bagi petani lokal.',
+                'Membangun arsitektur Android yang kokoh menggunakan Kotlin dan pola MVVM untuk memastikan skalabilitas dan pemeliharaan kode.',
+                'Mengintegrasikan API RESTful menggunakan Retrofit untuk menghubungkan antarmuka mobile secara mulus dengan model Machine Learning yang di-host di Google Cloud.',
+                'Berkolaborasi dalam tim lintas fungsi yang terdiri dari 6 anggota (Mobile, Cloud, & ML Engineers) menggunakan metodologi Agile/Scrum dan Git untuk kontrol versi guna memenuhi tenggat waktu proyek yang ketat.'
+            ]
+        },
+        {
+            company: 'Universitas Serang Raya',
+            location: 'Serang, Banten',
+            role: 'Campus Ambassador (Duta Kampus)',
+            date: 'Feb 2024 - Feb 2025',
+            bullets: [
+                'Mengelola dan mengkurasi konten untuk saluran media sosial resmi Duta Kampus, menjaga jadwal posting yang konsisten untuk meningkatkan kehadiran digital.',
+                'Menjalankan strategi promosi untuk memperkenalkan universitas kepada calon mahasiswa melalui kampanye digital dan kegiatan luring.',
+                'Merancang aset visual dan video berdurasi pendek (menggunakan Canva/CapCut) untuk meningkatkan keterlibatan audiens dan kesadaran merek secara efektif.',
+                'Bertindak sebagai perwakilan universitas, mengomunikasikan program akademik dan budaya kampus kepada khalayak luas dengan profesionalisme.'
             ]
         }
     ],
     certifications: [
-        { name: 'AWS Certified Solutions Architect - Associate', issuer: 'Amazon Web Services', date: 'Mar 2025' },
-        { name: 'Professional Cloud Developer', issuer: 'Google Cloud', date: 'Jul 2024' }
+        { name: 'Generasi dan Optimasi Kode Menggunakan IBM Granite', issuer: 'IBM Skills Build', date: 'Sep 2025' },
+        { name: 'Belajar Pengembangan Aplikasi Android Intermediate', issuer: 'Dicoding Indonesia', date: 'Des 2024 - Des 2027' },
+        { name: 'Belajar Dasar Git dengan Github', issuer: 'Dicoding Indonesia', date: 'Des 2024 - Des 2027' },
+        { name: 'Belajar Penerapan Machine Learning untuk Android', issuer: 'Dicoding Indonesia', date: 'Nov 2024 - Des 2027' }
     ],
     awards: [
-        'Juara 1 Hackathon Nasional bidang Inovasi FinTech',
-        'Lulusan Terbaik Fakultas Ilmu Komputer, Universitas Indonesia'
+        'Juara 4 Kompetisi Sains Nasional tingkat Kabupaten (KSN-K) Astronomi, SMAN 1 Rangkasbitung',
+        'Penerima Program MSIB Angkatan 7 — Bangkit Academy oleh Google, GoTo, dan Traveloka'
     ],
     skills: [
-        { category: 'Pemrograman', items: 'JavaScript, TypeScript, Python, SQL, HTML, CSS' },
-        { category: 'Framework & Tools', items: 'React.js, Node.js, Express, PostgreSQL, Git, Docker' },
-        { category: 'Desain & Perangkat Lunak', items: 'Figma, Postman, Trello' },
-        { category: 'Bahasa', items: 'Bahasa Indonesia (Utama) & Inggris (Profesional)' }
+        { category: 'Pemrograman', items: 'Kotlin, Java, PHP, JavaScript, HTML, CSS' },
+        { category: 'Framework & Tools', items: 'Next.js, Laravel, Retrofit, MVVM Architecture, Git' },
+        { category: 'Desain & Perangkat Lunak', items: 'Figma, Adobe Illustrator, Canva, CapCut' },
+        { category: 'Soft Skills', items: 'Komunikasi, Kerja Sama Tim, Manajemen Waktu, Public Speaking' },
+        { category: 'Bahasa', items: 'Bahasa Indonesia & Inggris' }
     ]
 };
 
@@ -280,7 +310,7 @@ function renderWorkExperienceForm() {
 }
 
 function renderRelatedExperiencesForm() {
-    return renderExperienceCards('relatedExperiences', cvData.relatedExperiences, 'Pengalaman Lainnya');
+    return renderExperienceCards('relatedExperiences', cvData.relatedExperiences, 'Pengalaman');
 }
 
 function renderCertificationsForm() {
@@ -478,7 +508,7 @@ const SECTION_HEADERS = {
     id: {
         education: 'PENDIDIKAN',
         workExperience: 'PENGALAMAN KERJA',
-        relatedExperiences: 'PENGALAMAN LAINNYA',
+        relatedExperiences: 'PENGALAMAN',
         certifications: 'SERTIFIKASI',
         awards: 'PENGHARGAAN',
         skills: 'KEAHLIAN'
