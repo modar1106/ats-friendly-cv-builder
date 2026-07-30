@@ -67,6 +67,144 @@ const DEFAULT_DATA = {
     ]
 };
 
+const HAIDAR_DATA = {
+    language: 'id',
+    header: {
+        name: 'Mohamad Haidar',
+        email: 'mohamadhaidar0604@gmail.com',
+        phone: '+62 87781303342',
+        website: 'm-haidar.my.id',
+        address: 'Serang, Banten, Indonesia'
+    },
+    summary: 'Mahasiswa IT yang bermotivasi tinggi, Owner & Freelance Fullstack Developer di Build By Dare, serta alumni program bergengsi Bangkit Academy. Memiliki keahlian kuat dalam pengembangan aplikasi web dan mobile (Next.js, Laravel, React.js, Kotlin, PostgreSQL) serta perancangan antarmuka UI/UX. Berpengalaman membangun berbagai produk digital mandiri dan proyek klien seperti InventoryKu, Festivo, ArusKu, SmartFarm, dan platform Fintech. Berkomitmen untuk terus berinovasi dan memberikan dampak positif dalam tim teknik yang dinamis.',
+    education: [
+        {
+            institution: 'Universitas Serang Raya',
+            location: 'Serang, Banten',
+            degree: 'Sarjana Teknologi Informasi (GPA: 3.7 / 4.00)',
+            date: 'Sep 2022 - Jul 2026',
+            bullets: [
+                'Aktif terlibat dalam kegiatan akademik dan ekstrakurikuler selama masa kuliah.',
+                'Merancang dan mengembangkan SmartFarm, sebuah aplikasi Android yang berfokus pada solusi pertanian cerdas.',
+                'Merancang Looka Food, sebuah proyek UI/UX untuk aplikasi kuliner.',
+                'Terpilih sebagai Campus Ambassador, bertugas sebagai Administrator Media Sosial dan Desainer.',
+                'Penerima Program MSIB Angkatan 7, diterima di Bangkit Academy oleh Google, GoTo, dan Traveloka.'
+            ]
+        },
+        {
+            institution: 'SMAN 1 Rangkasbitung',
+            location: 'Rangkasbitung, Banten',
+            degree: 'Sekolah Menengah Atas',
+            date: 'Mei 2019 - Mei 2022',
+            bullets: [
+                'Meraih Peringkat ke-4 dalam Kompetisi Sains Nasional tingkat Kabupaten (KSN-K) bidang Astronomi.',
+                'Ketua Majelis Perwakilan Kelas (MPK) dan Ketua Pasukan Pengibar Bendera Sekolah (PASKIBRA).'
+            ]
+        }
+    ],
+    workExperience: [
+        {
+            company: 'Build By Dare',
+            location: 'Indonesia',
+            role: 'Owner & Freelance Fullstack Web Developer',
+            date: 'Jan 2024 - Sekarang',
+            bullets: [
+                'Mendirikan dan mengelola Build By Dare, merancang serta mengembangkan berbagai solusi web, mobile, dan UI/UX profesional untuk klien bisnis dan proyek digital mandiri.',
+                'Mengembangkan "InventoryKu" (Laravel, Tailwind CSS, PostgreSQL), sistem manajemen inventaris modern dengan fitur pelacakan stok, manajemen pemasok, dan riwayat transaksi.',
+                'Merancang dan membangun "Festivo" (Web App) untuk platform reservasi tiket acara online, serta "ArusKu" (Mobile App) untuk pelacakan anggaran dan analisis arus kas keuangan pribadi.',
+                'Merancang dan mendeploy "Yeni Las Landing Page", website profil usaha jasa las profesional yang responsif dan teroptimasi SEO untuk meningkatkan penjangkauan klien.',
+                'Merancang antarmuka UI/UX yang modern dan intuitif untuk berbagai aplikasi digital seperti "SeraBank" (Digital Banking Fintech), "SmartFarm Dashboard", dan "Looka Food" (Food Delivery).'
+            ]
+        },
+        {
+            company: 'USSI Itqan Tekno Solusi',
+            location: 'Indonesia',
+            role: 'Fullstack Web Developer — Magang',
+            date: 'Feb 2026 - Apr 2026',
+            bullets: [
+                'Mengembangkan "TolongMenolong", sebuah platform crowdfunding yang dibangun dengan Next.js, mengintegrasikan DOKU Payment Gateway untuk memfasilitasi transaksi donasi yang aman dan otomatis.',
+                'Merancang migrasi profil resmi perusahaan dari WordPress ke Next.js, secara signifikan meningkatkan kecepatan pemuatan halaman, kinerja SEO, dan skalabilitas keseluruhan.',
+                'Berkolaborasi dalam pengembangan ujung-ke-ujung (end-to-end), mulai dari desain skema basis data hingga implementasi UI frontend, memastikan pengalaman pengguna yang mulus di berbagai platform web.',
+                'Meningkatkan pencitraan merek perusahaan dengan merancang dan mengedit Laporan Tahunan profesional menggunakan Canva, memastikan komunikasi visual berkualitas tinggi untuk para pemangku kepentingan.'
+            ]
+        }
+    ],
+    relatedExperiences: [
+        {
+            company: 'Bangkit Academy (Google, GoTo, Traveloka)',
+            location: 'Indonesia',
+            role: 'Mobile Development Cohort',
+            date: 'Sep 2024 - Jan 2025',
+            bullets: [
+                'Memimpin pengembangan mobile untuk "SmartFarm", aplikasi pertanian yang dirancang untuk memberikan rekomendasi komoditas pangan berbasis kecerdasan buatan (AI) bagi petani lokal.',
+                'Membangun arsitektur Android yang kokoh menggunakan Kotlin dan pola MVVM untuk memastikan skalabilitas dan pemeliharaan kode.',
+                'Mengintegrasikan API RESTful menggunakan Retrofit untuk menghubungkan antarmuka mobile secara mulus dengan model Machine Learning yang di-host di Google Cloud.',
+                'Berkolaborasi dalam tim lintas fungsi yang terdiri dari 6 anggota (Mobile, Cloud, & ML Engineers) menggunakan metodologi Agile/Scrum dan Git untuk kontrol versi guna memenuhi tenggat waktu proyek yang ketat.'
+            ]
+        },
+        {
+            company: 'Universitas Serang Raya',
+            location: 'Serang, Banten',
+            role: 'Campus Ambassador (Duta Kampus)',
+            date: 'Feb 2023 - Feb 2024',
+            bullets: [
+                'Mengelola dan mengkurasi konten untuk saluran media sosial resmi Duta Kampus, menjaga jadwal posting yang konsisten untuk meningkatkan kehadiran digital.',
+                'Menjalankan strategi promosi untuk memperkenalkan universitas kepada calon mahasiswa melalui kampanye digital dan kegiatan luring.',
+                'Merancang aset visual dan video berdurasi pendek (menggunakan Canva/CapCut) untuk meningkatkan keterlibatan audiens dan kesadaran merek secara efektif.',
+                'Bertindak sebagai perwakilan universitas, mengomunikasikan program akademik dan budaya kampus kepada khalayak luas dengan profesionalisme.'
+            ]
+        }
+    ],
+    certifications: [
+        { name: 'Generasi dan Optimasi Kode Menggunakan IBM Granite', issuer: 'IBM Skills Build', date: 'Sep 2025' },
+        { name: 'Belajar Pengembangan Aplikasi Android Intermediate', issuer: 'Dicoding Indonesia', date: 'Des 2024 - Des 2027' },
+        { name: 'Belajar Dasar Git dengan Github', issuer: 'Dicoding Indonesia', date: 'Des 2024 - Des 2027' },
+        { name: 'Belajar Penerapan Machine Learning untuk Android', issuer: 'Dicoding Indonesia', date: 'Nov 2024 - Des 2027' }
+    ],
+    awards: [
+        'Juara 4 Kompetisi Sains Nasional tingkat Kabupaten (KSN-K) Astronomi, SMAN 1 Rangkasbitung',
+        'Penerima Program MSIB Angkatan 7 — Bangkit Academy oleh Google, GoTo, dan Traveloka'
+    ],
+    skills: [
+        { category: 'Pemrograman', items: 'Kotlin, Java, PHP, JavaScript, HTML, CSS' },
+        { category: 'Framework & Tools', items: 'Next.js, Laravel, Tailwind CSS, Retrofit, PostgreSQL, MySQL, Git' },
+        { category: 'Desain & Perangkat Lunak', items: 'Figma, Adobe Illustrator, Canva, CapCut' },
+        { category: 'Soft Skills', items: 'Komunikasi, Kerja Sama Tim, Manajemen Waktu, Public Speaking' },
+        { category: 'Bahasa', items: 'Bahasa Indonesia & Inggris' }
+    ]
+};
+
+function loadPersonalHaidarData() {
+    cvData = JSON.parse(JSON.stringify(HAIDAR_DATA));
+    saveData();
+    renderForm();
+    renderPreview();
+}
+
+function promptPersonalData() {
+    const pin = prompt('Masukkan PIN / Kode Rahasia Owner:');
+    if (pin === '0604' || pin === 'haidar' || pin === '1106') {
+        loadPersonalHaidarData();
+        hideResetModal();
+        alert('✓ Data Pribadi Mohamad Haidar Berhasil Dimuat!');
+    } else if (pin !== null) {
+        alert('❌ PIN / Kode Rahasia Salah.');
+    }
+}
+
+function checkSecretAccess() {
+    try {
+        const params = new URLSearchParams(window.location.search);
+        const mode = params.get('mode') || params.get('user') || params.get('admin');
+        if (mode && (mode.toLowerCase() === 'haidar' || mode.toLowerCase() === 'owner')) {
+            loadPersonalHaidarData();
+            window.history.replaceState({}, document.title, window.location.pathname);
+            return true;
+        }
+    } catch (e) { /* ignore URL errors */ }
+    return false;
+}
+
 let cvData = {};
 
 /* =================================================================
@@ -118,6 +256,7 @@ function renderForm() {
                 Unduh PDF CV Contoh
             </a>
         </div>
+        ${renderJobDescriptionForm()}
         ${renderHeaderForm()}
         ${renderSummaryForm()}
         ${renderEducationForm()}
@@ -129,6 +268,335 @@ function renderForm() {
     `;
     // Attach input listeners using event delegation
     editor.addEventListener('input', handleFormInput);
+}
+
+function renderJobDescriptionForm() {
+    return `
+    <div class="form-section job-desc-section" data-section="jobDesc">
+        <div class="form-section-header" onclick="toggleSection(this)">
+            <span class="form-section-title">✨ Auto-Fill dari Lowongan Kerja</span>
+            <span class="form-section-toggle">▾</span>
+        </div>
+        <div class="form-section-body">
+            <p class="job-desc-hint">Tempelkan teks deskripsi pekerjaan (Job Description) di bawah ini. Sistem akan secara otomatis menyesuaikan posisi, keahlian, dan poin pengalaman CV Anda.</p>
+            <div class="form-group">
+                <textarea class="form-textarea" id="jobDescInput" rows="4" placeholder="Contoh: Kami mencari Fullstack Web Developer yang menguasai React, Node.js, PostgreSQL, REST API, Git, dan CI/CD..."></textarea>
+            </div>
+            <div class="form-group" style="margin-top: 8px; margin-bottom: 8px;">
+                <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: #cbd5e1; cursor: pointer; user-select: none;">
+                    <input type="checkbox" id="updateSummaryCheckbox" style="accent-color: #3b82f6; cursor: pointer;">
+                    Ikut sesuaikan Ringkasan Profil (Summary)
+                </label>
+            </div>
+            <button type="button" class="btn btn-primary btn-generate" onclick="handleGenerateFromJobDesc()">
+                Generate & Tailor Isi CV
+            </button>
+            <div id="genStatus"></div>
+        </div>
+    </div>`;
+}
+
+function handleGenerateFromJobDesc() {
+    const input = document.getElementById('jobDescInput');
+    if (!input || !input.value.trim()) {
+        alert('Silakan masukkan teks deskripsi lowongan pekerjaan terlebih dahulu.');
+        return;
+    }
+
+    const text = input.value.trim();
+    generateFromJobDescription(text);
+
+    const statusEl = document.getElementById('genStatus');
+    if (statusEl) {
+        statusEl.className = 'gen-success-badge';
+        statusEl.textContent = '✓ Isi CV Berhasil Disesuaikan dari Lowongan!';
+        setTimeout(() => { statusEl.textContent = ''; }, 3500);
+    }
+}
+
+function translateBulletToID(text) {
+    let t = text;
+
+    const translations = [
+        { en: /^Design, develop, test, and maintain web applications using/i, id: 'Merancang, mengembangkan, menguji, dan memelihara aplikasi web menggunakan' },
+        { en: /^Design, develop, test, and maintain/i, id: 'Merancang, mengembangkan, menguji, dan memelihara' },
+        { en: /^Design, develop, and maintain/i, id: 'Merancang, mengembangkan, dan memelihara' },
+        { en: /^Design and develop/i, id: 'Merancang dan mengembangkan' },
+        { en: /^Develop and integrate RESTful APIs and backend services/i, id: 'Mengembangkan dan mengintegrasikan RESTful API serta layanan backend' },
+        { en: /^Develop and integrate/i, id: 'Mengembangkan dan mengintegrasikan' },
+        { en: /^Build responsive, user-friendly, and scalable front-end applications/i, id: 'Membangun aplikasi front-end yang responsif, ramah pengguna, dan skalabel' },
+        { en: /^Build responsive, user-friendly, and scalable/i, id: 'Membangun antarmuka yang responsif, ramah pengguna, dan skalabel' },
+        { en: /^Build responsive and user-friendly/i, id: 'Membangun aplikasi responsif dan ramah pengguna' },
+        { en: /^Build and maintain/i, id: 'Membangun dan memelihara' },
+        { en: /^Build/i, id: 'Membangun' },
+        { en: /^Collaborate with Product Owners, Business Analysts, and other developers in an Agile environment/i, id: 'Berkolaborasi dengan Product Owner, Business Analyst, dan pengembang lain dalam lingkungan Agile' },
+        { en: /^Collaborate with Sales and Academic teams to achieve enrollment targets/i, id: 'Berkolaborasi dengan tim Penjualan dan Akademik untuk mencapai target pendaftaran' },
+        { en: /^Collaborate with/i, id: 'Berkolaborasi dengan' },
+        { en: /^Collaborate in/i, id: 'Berkolaborasi dalam' },
+        { en: /^Write clean, efficient, secure, and maintainable code following best practices/i, id: 'Menulis kode yang bersih, efisien, aman, dan mudah dipelihara sesuai best practices' },
+        { en: /^Write clean, efficient, and maintainable code/i, id: 'Menulis kode yang bersih, efisien, dan mudah dipelihara' },
+        { en: /^Write clean code/i, id: 'Menulis kode yang bersih' },
+        { en: /^Optimize application performance, scalability, and reliability/i, id: 'Mengoptimalkan performa, skalabilitas, dan keandalan aplikasi' },
+        { en: /^Optimize application performance/i, id: 'Mengoptimalkan performa aplikasi' },
+        { en: /^Troubleshoot, debug, and resolve technical issues/i, id: 'Melakukan troubleshooting, debugging, dan menyelesaikan masalah teknis' },
+        { en: /^Troubleshoot and resolve/i, id: 'Melakukan troubleshooting dan menyelesaikan masalah' },
+        { en: /^Participate in code reviews and contribute to continuous improvement initiatives/i, id: 'Berpartisipasi dalam code review dan berkontribusi pada peningkatan kualitas berkelanjutan' },
+        { en: /^Participate in/i, id: 'Berpartisipasi dalam' },
+        { en: /^Implement and maintain database structures and queries using/i, id: 'Mengimplementasikan dan memelihara struktur basis data serta kueri menggunakan' },
+        { en: /^Implement and maintain/i, id: 'Mengimplementasikan dan memelihara' },
+        { en: /^Work with version control systems and support deployment processes/i, id: 'Bekerja dengan sistem kontrol versi (Git) serta mendukung proses deployment' },
+        { en: /^Work with/i, id: 'Bekerja dengan' },
+        { en: /^Understand business requirements and translate them into technical solutions/i, id: 'Memahami kebutuhan bisnis dan menerjemahkannya menjadi solusi teknis' },
+        { en: /^Build and maintain strong relationships with/i, id: 'Membangun dan memelihara hubungan profesional yang kuat dengan' },
+        { en: /^Conduct school visits, presentations, seminars, and promotional events/i, id: 'Melakukan kunjungan ke sekolah, presentasi, seminar, dan acara promosi' },
+        { en: /^Organize and manage marketing booths, exhibitions, and etc/i, id: 'Mengorganisir dan mengelola stan pemasaran, pameran, dan kegiatan promosi' },
+        { en: /^Organize and manage/i, id: 'Mengorganisir dan mengelola' },
+        { en: /^Identify new marketing opportunities and potential partnerships/i, id: 'Mengidentifikasi peluang pemasaran baru dan potensi kemitraan strategis' },
+        { en: /^Generate qualified leads, follow up with prospective students and parents/i, id: 'Menghasilkan prospek calon siswa/klien potensial dan melakukan tindak lanjut' },
+        { en: /^Generate qualified leads/i, id: 'Menghasilkan prospek klien/siswa potensial (leads)' }
+    ];
+
+    for (const rule of translations) {
+        if (rule.en.test(t)) {
+            t = t.replace(rule.en, rule.id);
+            break;
+        }
+    }
+
+    return t;
+}
+
+function generateFromJobDescription(text) {
+    const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    const lowerText = text.toLowerCase();
+    const isID = (cvData.language || 'id') === 'id';
+
+    // 1. Universal Role Detection
+    let detectedRole = '';
+
+    for (let i = 0; i < Math.min(3, lines.length); i++) {
+        const line = lines[i];
+        if (!line.toLowerCase().includes('job description') && !line.toLowerCase().includes('qualification') && !line.toLowerCase().includes('uraian tugas') && line.length < 50) {
+            detectedRole = line.replace(/^(lowongan|posisi|job title|role|we are hiring|hiring)\s*:\s*/i, '').trim();
+            break;
+        }
+    }
+
+    if (!detectedRole) {
+        const roleCatalog = [
+            { keywords: ['fullstack java', 'java developer'], role: 'Fullstack Java Developer' },
+            { keywords: ['fullstack', 'full-stack'], role: 'Fullstack Web Developer' },
+            { keywords: ['frontend', 'front-end'], role: 'Frontend Web Developer' },
+            { keywords: ['backend', 'back-end'], role: 'Backend Web Developer' },
+            { keywords: ['mobile', 'android', 'flutter'], role: 'Mobile Application Developer' },
+            { keywords: ['field marketing', 'field marketer'], role: 'Field Marketing Specialist' },
+            { keywords: ['digital marketing', 'digital marketer', 'seo', 'sem'], role: 'Digital Marketing Specialist' },
+            { keywords: ['marketing', 'pemasaran'], role: 'Marketing Specialist' },
+            { keywords: ['sales', 'penjualan', 'account executive'], role: 'Sales Executive' },
+            { keywords: ['admin', 'administrasi', 'administrative'], role: 'Staff Administrasi' },
+            { keywords: ['finance', 'keuangan', 'accounting', 'akuntansi'], role: 'Finance & Accounting Staff' },
+            { keywords: ['hr', 'human resource', 'recruiter', 'personalia'], role: 'HR & Recruitment Officer' },
+            { keywords: ['customer service', 'cs', 'helpdesk'], role: 'Customer Service Representative' },
+            { keywords: ['content creator', 'copywriter', 'content writer'], role: 'Content Writer & Specialist' },
+            { keywords: ['graphic designer', 'desainer grafis', 'illustrator'], role: 'Graphic Designer' },
+            { keywords: ['ui/ux', 'ui designer', 'ux designer'], role: 'UI/UX Designer' },
+            { keywords: ['data analyst', 'data science'], role: 'Data Analyst' },
+            { keywords: ['devops', 'cloud'], role: 'DevOps & Cloud Engineer' },
+            { keywords: ['project manager', 'product manager'], role: 'Project Manager' }
+        ];
+
+        for (const item of roleCatalog) {
+            if (item.keywords.some(k => lowerText.includes(k))) {
+                detectedRole = item.role;
+                break;
+            }
+        }
+    }
+
+    if (!detectedRole) {
+        detectedRole = isID ? 'Spesialis Profesional' : 'Professional Specialist';
+    }
+
+    // 2. Smart Duty & Responsibility Bullet Points Extractor
+    let rawBullets = [];
+    let inResponsibilitySection = false;
+
+    lines.forEach(line => {
+        const lowerLine = line.toLowerCase();
+
+        // Check section markers
+        if (lowerLine.includes('uraian tugas') || lowerLine.includes('job description') || lowerLine.includes('responsibilities') || lowerLine.includes('tasks') || lowerLine.includes('duties')) {
+            inResponsibilitySection = true;
+            return;
+        }
+        if (lowerLine.includes('syarat') || lowerLine.includes('kualifikasi') || lowerLine.includes('qualification') || lowerLine.includes('requirements')) {
+            inResponsibilitySection = false;
+            return;
+        }
+
+        // Match lines with bullet dots, numbers, or action verbs
+        const bulletMatch = line.match(/^(\d+[\.\)]|[\bullet\-\*])\s*(.+)/);
+        const textContent = bulletMatch ? bulletMatch[2].trim() : line;
+
+        // Action verbs regex (English & Indonesian)
+        const isActionLine = /^(design|develop|build|collaborate|write|optimize|troubleshoot|participate|implement|work|understand|create|manage|conduct|identify|generate|lead|support|merancang|mengembangkan|membuat|mengelola|melakukan|mengidentifikasi|berkolaborasi|memimpin)\b/i.test(textContent);
+
+        if ((bulletMatch || (inResponsibilitySection && isActionLine)) && textContent.length > 15) {
+            if (!rawBullets.includes(textContent)) {
+                rawBullets.push(textContent);
+            }
+        }
+    });
+
+    // Translate bullets to Indonesian if web language is set to 'id'
+    if (isID) {
+        rawBullets = rawBullets.map(b => translateBulletToID(b));
+    }
+
+    // 3. Extract & MERGE Skills (Add to existing skills without deleting)
+    const skillCategories = [
+        {
+            category: isID ? 'Spesialisasi & Bidang' : 'Core Specializations & Technical',
+            catalog: [
+                'Java Spring Boot', 'Spring Boot', 'Java', 'React.js', 'React', 'PostgreSQL', 'MySQL', 'SQL',
+                'RESTful API', 'REST API', 'Git', 'GitHub', 'GitLab', 'Agile', 'Linux', 'Unix', 'Redis', 'Kafka',
+                'Docker', 'Kubernetes', 'DevOps', 'CI/CD', 'AWS', 'GCP', 'Azure', 'Microservices',
+                'JavaScript', 'TypeScript', 'Python', 'Node.js', 'Express', 'Laravel', 'PHP', 'Kotlin', 'Flutter', 'HTML', 'CSS',
+                'Field Marketing', 'Digital Marketing', 'Lead Generation', 'Event Management', 'Public Relations',
+                'Market Research', 'Sales Strategy', 'Brand Awareness', 'Social Media', 'Content Strategy',
+                'Copywriting', 'SEO', 'Data Analysis', 'Customer Relationship', 'Microsoft Office', 'Figma', 'Canva'
+            ]
+        },
+        {
+            category: isID ? 'Soft Skills & Interpersonal' : 'Soft Skills & Interpersonal',
+            catalog: [
+                'Problem Solving', 'Analytical Thinking', 'Strategic Mindset', 'Communication', 'Teamwork', 'Negotiation', 'Interpersonal Skills',
+                'Komunikasi', 'Negosiasi', 'Kerja Sama Tim', 'Manajemen Waktu', 'Public Speaking', 'Critical Thinking', 'Kepemimpinan'
+            ]
+        }
+    ];
+
+    const softSkillMapID = {
+        'Problem Solving': 'Pemecahan Masalah',
+        'Analytical Thinking': 'Berpikir Analitis',
+        'Strategic Mindset': 'Pola Pikir Strategis',
+        'Communication': 'Komunikasi',
+        'Teamwork': 'Kerja Sama Tim',
+        'Negotiation': 'Negosiasi',
+        'Interpersonal Skills': 'Keahlian Interpersonal'
+    };
+
+    const extractedMain = skillCategories[0].catalog.filter(s => lowerText.includes(s.toLowerCase()));
+    const extractedSoftRaw = skillCategories[1].catalog.filter(s => lowerText.includes(s.toLowerCase()));
+
+    // Remove internal duplicates (e.g. Java vs Java Spring Boot)
+    const uniqueMain = [];
+    extractedMain.forEach(skill => {
+        if (!uniqueMain.some(existing => existing.toLowerCase().includes(skill.toLowerCase()) && existing.length > skill.length)) {
+            uniqueMain.push(skill);
+        }
+    });
+
+    const softSkillsMapped = isID 
+        ? extractedSoftRaw.map(s => softSkillMapID[s] || s)
+        : extractedSoftRaw;
+
+    // MERGE WITH EXISTING SKILLS IN cvData.skills
+    if (!cvData.skills || cvData.skills.length === 0) {
+        cvData.skills = [
+            { category: isID ? 'Spesialisasi & Bidang' : 'Core Specializations', items: '' },
+            { category: isID ? 'Soft Skills & Interpersonal' : 'Soft Skills & Interpersonal', items: '' },
+            { category: isID ? 'Bahasa' : 'Languages', items: isID ? 'Bahasa Indonesia & Inggris' : 'Indonesian & English' }
+        ];
+    }
+
+    const mainCat = cvData.skills[0];
+    if (mainCat) {
+        const existingMain = mainCat.items ? mainCat.items.split(',').map(s => s.trim()).filter(Boolean) : [];
+        uniqueMain.forEach(skill => {
+            if (!existingMain.some(e => e.toLowerCase() === skill.toLowerCase())) {
+                existingMain.push(skill);
+            }
+        });
+        mainCat.items = existingMain.join(', ');
+    }
+
+    const softCat = cvData.skills[1] || cvData.skills[0];
+    if (softCat) {
+        const existingSoft = softCat.items ? softCat.items.split(',').map(s => s.trim()).filter(Boolean) : [];
+        softSkillsMapped.forEach(skill => {
+            if (!existingSoft.some(e => e.toLowerCase() === skill.toLowerCase())) {
+                existingSoft.push(skill);
+            }
+        });
+        softCat.items = existingSoft.join(', ');
+    }
+
+    // 4. Generate Tailored Summary Statement (Only if user checks the box)
+    const shouldUpdateSummary = document.getElementById('updateSummaryCheckbox')?.checked;
+    if (shouldUpdateSummary) {
+        const mainSkillsStr = uniqueMain.join(', ');
+        const softSkillsStr = softSkillsMapped.join(', ');
+        if (isID) {
+            cvData.summary = `Profesional yang berdedikasi dan berorientasi pada hasil dengan fokus kompetensi di bidang ${detectedRole}. Memiliki keahlian dalam ${mainSkillsStr.toLowerCase()}, serta terbiasa mengelola dan mengeksekusi proyek teknis maupun strategi kerja yang efektif. Didukung oleh kemampuan ${softSkillsStr.toLowerCase()}, saya berkomitmen untuk berkontribusi secara maksimal dalam mencapai target operasional dan pertumbuhan organisasi.`;
+        } else {
+            cvData.summary = `Dedicated and results-oriented professional specializing as a ${detectedRole}. Possesses strong expertise in ${mainSkillsStr}, with proven experience executing technical projects and operational workflows. Backed by strong ${softSkillsStr.toLowerCase()}, I am committed to contributing effectively toward organizational goals and innovation.`;
+        }
+    }
+
+    // 5. MERGE / APPEND Work Experience Section (Do not delete existing experience entries)
+    if (!cvData.workExperience || cvData.workExperience.length === 0) {
+        cvData.workExperience = [
+            {
+                company: isID ? 'Perusahaan / Organisasi' : 'Company / Organization',
+                location: isID ? 'Indonesia' : 'Indonesia',
+                role: `${detectedRole}`,
+                date: isID ? '2024 - Sekarang' : '2024 - Present',
+                bullets: []
+            }
+        ];
+    }
+
+    const isIT = /developer|engineer|fullstack|backend|frontend|java|react|android|data|devops/i.test(detectedRole);
+    const fallbackBullets = isIT ? (isID ? [
+        `Merancang, mengembangkan, menguji, dan memelihara aplikasi web/mobile menggunakan teknologi modern.`,
+        `Mengembangkan dan mengintegrasikan RESTful API, layanan backend, dan struktur basis data yang aman.`,
+        `Membangun antarmuka front-end yang responsif dan ramah pengguna serta mengoptimalkan performa sistem.`,
+        `Berkolaborasi aktif dengan Product Owner, Analyst, dan tim pengembang dalam lingkungan Agile.`
+    ] : [
+        `Design, develop, test, and maintain scalable web/mobile applications using modern technologies.`,
+        `Develop and integrate secure RESTful APIs, backend services, and database structures.`,
+        `Build responsive, user-friendly frontend interfaces and optimize application performance and reliability.`,
+        `Collaborate actively with Product Owners, Analysts, and developers in an Agile development environment.`
+    ]) : (isID ? [
+        `Merancang dan mengimplementasikan rencana kerja operasional di bidang ${detectedRole} sesuai target yang ditetapkan.`,
+        `Membangun dan memelihara hubungan profesional yang kuat dengan mitra strategis, klien, serta pihak eksternal.`,
+        `Mengelola pelaksanaan kegiatan operasional guna mengoptimalkan pencapaian sasaran organisasi.`,
+        `Berkolaborasi aktif dengan tim lintas fungsi untuk memastikan kelancaran operasional dan efisiensi kerja.`
+    ] : [
+        `Develop and implement operational work plans for ${detectedRole} to achieve target goals.`,
+        `Build and maintain strong professional relationships with strategic partners, clients, and external stakeholders.`,
+        `Manage operational activities to optimize organizational goals and growth.`,
+        `Collaborate actively with cross-functional teams to ensure smooth workflow and efficiency.`
+    ]);
+
+    const newBullets = rawBullets.length > 0 ? rawBullets.slice(0, 6) : fallbackBullets;
+    const primaryExp = cvData.workExperience[0];
+
+    // Append new bullets into primary experience without deleting existing ones
+    if (!primaryExp.bullets) primaryExp.bullets = [];
+    newBullets.forEach(newBullet => {
+        const isDup = primaryExp.bullets.some(existing => 
+            existing.toLowerCase().includes(newBullet.toLowerCase().slice(0, 15))
+        );
+        if (!isDup) {
+            primaryExp.bullets.push(newBullet);
+        }
+    });
+
+    renderForm();
+    renderPreview();
+    saveData();
 }
 
 function renderHeaderForm() {
@@ -821,7 +1289,8 @@ document.addEventListener('click', (e) => {
    INIT
    ================================================================= */
 function init() {
-    if (!loadData()) {
+    const hasSecret = checkSecretAccess();
+    if (!hasSecret && !loadData()) {
         cvData = JSON.parse(JSON.stringify(DEFAULT_DATA));
     }
     const lang = cvData.language || 'id';
