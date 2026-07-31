@@ -174,20 +174,144 @@ const HAIDAR_DATA = {
     ]
 };
 
-function loadPersonalHaidarData() {
-    cvData = JSON.parse(JSON.stringify(HAIDAR_DATA));
+const HAIDAR_DATA_EN = {
+    language: 'en',
+    header: {
+        name: 'Mohamad Haidar',
+        email: 'mohamadhaidar0604@gmail.com',
+        phone: '+62 87781303342',
+        website: 'm-haidar.my.id',
+        address: 'Serang, Banten, Indonesia'
+    },
+    summary: 'Highly motivated IT student, Founder & Freelance Fullstack Developer at Build By Dare, and alumnus of the prestigious Bangkit Academy (Google, GoTo, Traveloka). Possesses strong expertise in full-stack web and mobile application engineering (Next.js, Laravel, React.js, Kotlin, PostgreSQL) as well as UI/UX design. Experienced in building diverse digital products including InventoryKu, Festivo, ArusKu, SmartFarm, and Fintech systems. Committed to continuous innovation and delivering impactful technology solutions within dynamic engineering teams.',
+    education: [
+        {
+            institution: 'Universitas Serang Raya',
+            location: 'Serang, Banten, Indonesia',
+            degree: 'Bachelor of Information Technology (GPA: 3.70 / 4.00)',
+            date: 'Sep 2022 - Jul 2026',
+            bullets: [
+                'Actively engaged in academic and extra-curricular leadership activities throughout university studies.',
+                'Designed and developed SmartFarm, an Android application focusing on smart agriculture solution.',
+                'Designed Looka Food, a UI/UX design project for food delivery service.',
+                'Selected as Campus Ambassador, serving as Social Media Administrator and Graphic Designer.',
+                'Awarded MSIB Batch 7 Program Grantee, accepted into Bangkit Academy by Google, GoTo, and Traveloka.'
+            ]
+        },
+        {
+            institution: 'SMAN 1 Rangkasbitung',
+            location: 'Rangkasbitung, Banten, Indonesia',
+            degree: 'High School Diploma (Science Major)',
+            date: 'May 2019 - May 2022',
+            bullets: [
+                'Achieved 4th Rank in the Regency-Level National Science Competition (KSN-K) in Astronomy.',
+                'Chairman of the Class Representative Council (MPK) and Leader of the School Flag Hoisting Troop (PASKIBRA).'
+            ]
+        }
+    ],
+    workExperience: [
+        {
+            company: 'Build By Dare',
+            location: 'Indonesia',
+            role: 'Owner & Freelance Fullstack Web Developer',
+            date: 'Jan 2024 - Present',
+            bullets: [
+                'Founded and spearheaded Build By Dare, engineering end-to-end web, mobile, and UI/UX solutions for business clients and proprietary digital products.',
+                'Engineered "InventoryKu" (Laravel, Tailwind CSS, PostgreSQL), a modern inventory management system featuring stock tracking, supplier management, and transaction history.',
+                'Designed and built "Festivo" (Web App) for online event discovery & ticket reservation, and "ArusKu" (Mobile App) for personal budgeting and cash flow analytics.',
+                'Designed and deployed "Yeni Las Landing Page", a responsive, SEO-optimized professional welding service landing page to boost client acquisition.',
+                'Created modern UI/UX design concepts and interactive prototypes for products like "SeraBank" (Fintech Digital Banking), "SmartFarm Dashboard", and "Looka Food".'
+            ]
+        },
+        {
+            company: 'USSI Itqan Tekno Solusi',
+            location: 'Indonesia',
+            role: 'Fullstack Web Developer — Intern',
+            date: 'Feb 2026 - Apr 2026',
+            bullets: [
+                'Developed "TolongMenolong", a crowdfunding platform built with Next.js, integrating DOKU Payment Gateway to facilitate secure and automated donation transactions.',
+                'Spearheaded the architectural migration of the company official profile website from WordPress to Next.js, significantly improving page load speed, SEO performance, and overall scalability.',
+                'Collaborated across the full-stack development pipeline, from relational database schema design to RESTful backend integration and frontend UI implementation.',
+                'Enhanced corporate brand communication by designing and editing the official Corporate Annual Report using Canva for key stakeholders.'
+            ]
+        }
+    ],
+    relatedExperiences: [
+        {
+            company: 'Bangkit Academy (Google, GoTo, Traveloka)',
+            location: 'Indonesia',
+            role: 'Mobile Development Cohort',
+            date: 'Sep 2024 - Jan 2025',
+            bullets: [
+                'Led mobile development for "SmartFarm", an agriculture application designed to provide AI-powered crop commodity recommendations for local farmers.',
+                'Architected a robust Android application using Kotlin and MVVM architecture pattern to ensure code maintainability and scalability.',
+                'Integrated RESTful APIs via Retrofit to connect the mobile interface seamlessly with Machine Learning models hosted on Google Cloud Platform.',
+                'Collaborated within a cross-functional team of 6 engineers (Mobile, Cloud, & ML) using Agile/Scrum methodologies and Git version control to meet strict project milestones.'
+            ]
+        },
+        {
+            company: 'Universitas Serang Raya',
+            location: 'Serang, Banten, Indonesia',
+            role: 'Campus Ambassador (Duta Kampus)',
+            date: 'Feb 2023 - Feb 2024',
+            bullets: [
+                'Managed and curated content for official Campus Ambassador social media channels, maintaining consistent posting schedules to boost digital presence.',
+                'Executed promotional strategies to introduce the university to prospective students through digital campaigns and offline events.',
+                'Designed visual assets and short-form video content (using Canva/CapCut) to effectively increase audience engagement and brand awareness.',
+                'Served as official university representative, communicating academic programs and campus culture to a broad audience with professionalism.'
+            ]
+        }
+    ],
+    certifications: [
+        { name: 'Generative AI & Code Optimization with IBM Granite', issuer: 'IBM Skills Build', date: 'Sep 2025' },
+        { name: 'Intermediate Android Application Development', issuer: 'Dicoding Indonesia', date: 'Dec 2024 - Dec 2027' },
+        { name: 'Basic Git & GitHub Mastery', issuer: 'Dicoding Indonesia', date: 'Dec 2024 - Dec 2027' },
+        { name: 'Machine Learning Implementation for Android', issuer: 'Dicoding Indonesia', date: 'Nov 2024 - Dec 2027' }
+    ],
+    awards: [
+        '4th Rank - Regency National Science Competition (KSN-K) Astronomy, SMAN 1 Rangkasbitung',
+        'MSIB Batch 7 Awardee — Bangkit Academy by Google, GoTo, and Traveloka'
+    ],
+    skills: [
+        { category: 'Programming Languages', items: 'Kotlin, Java, PHP, JavaScript, HTML, CSS' },
+        { category: 'Frameworks & Tools', items: 'Next.js, Laravel, Tailwind CSS, Retrofit, PostgreSQL, MySQL, Git' },
+        { category: 'Design & Tools', items: 'Figma, Adobe Illustrator, Canva, CapCut' },
+        { category: 'Soft Skills', items: 'Communication, Teamwork, Time Management, Public Speaking, Problem Solving' },
+        { category: 'Languages', items: 'Indonesian (Native), English (Professional)' }
+    ]
+};
+
+function loadPersonalHaidarData(lang = 'id') {
+    if (lang === 'en') {
+        cvData = JSON.parse(JSON.stringify(HAIDAR_DATA_EN));
+    } else {
+        cvData = JSON.parse(JSON.stringify(HAIDAR_DATA));
+    }
     saveData();
+
+    // Sync select dropdowns
+    const langSelect = document.getElementById('langSelect');
+    if (langSelect) langSelect.value = lang;
+    const langSelectDropdown = document.getElementById('langSelectDropdown');
+    if (langSelectDropdown) langSelectDropdown.value = lang;
+
     renderForm();
     renderPreview();
 }
 
 function promptPersonalData() {
-    const pin = prompt('Masukkan PIN / Kode Rahasia Owner:');
-    if (pin === '0604' || pin === 'haidar' || pin === '1106') {
-        loadPersonalHaidarData();
+    const pin = prompt('Masukkan PIN / Kode Rahasia Owner (tambahkan -en untuk Bahasa Inggris, misal: 0604-en):');
+    if (!pin) return;
+    
+    const lowerPin = pin.trim().toLowerCase();
+    const isEn = lowerPin.endsWith('-en') || lowerPin.endsWith('en');
+    const cleanPin = lowerPin.replace(/-?en$/, '');
+
+    if (cleanPin === '0604' || cleanPin === 'haidar' || cleanPin === '1106') {
+        loadPersonalHaidarData(isEn ? 'en' : 'id');
         hideResetModal();
-        alert('✓ Data Pribadi Mohamad Haidar Berhasil Dimuat!');
-    } else if (pin !== null) {
+        alert(`✓ Data Pribadi Mohamad Haidar (${isEn ? 'English' : 'Bahasa Indonesia'}) Berhasil Dimuat!`);
+    } else {
         alert('❌ PIN / Kode Rahasia Salah.');
     }
 }
@@ -195,11 +319,29 @@ function promptPersonalData() {
 function checkSecretAccess() {
     try {
         const params = new URLSearchParams(window.location.search);
+        
+        // Support ?mode-en=haidar, ?mode_en=haidar, ?mode=haidar-en, ?lang=en&mode=haidar
+        const modeEn = params.get('mode-en') || params.get('mode_en');
         const mode = params.get('mode') || params.get('user') || params.get('admin');
-        if (mode && (mode.toLowerCase() === 'haidar' || mode.toLowerCase() === 'owner')) {
-            loadPersonalHaidarData();
+        const lang = params.get('lang');
+
+        if (modeEn && modeEn.toLowerCase().includes('haidar')) {
+            loadPersonalHaidarData('en');
             window.history.replaceState({}, document.title, window.location.pathname);
             return true;
+        }
+
+        if (mode) {
+            const lowerMode = mode.toLowerCase();
+            if (lowerMode === 'haidar-en' || lowerMode === 'haidaren' || (lowerMode === 'haidar' && lang === 'en')) {
+                loadPersonalHaidarData('en');
+                window.history.replaceState({}, document.title, window.location.pathname);
+                return true;
+            } else if (lowerMode === 'haidar' || lowerMode === 'owner') {
+                loadPersonalHaidarData(lang === 'en' ? 'en' : 'id');
+                window.history.replaceState({}, document.title, window.location.pathname);
+                return true;
+            }
         }
     } catch (e) { /* ignore URL errors */ }
     return false;
