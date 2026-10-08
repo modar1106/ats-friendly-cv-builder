@@ -315,6 +315,49 @@ body {
     margin-bottom: 12px;
 }
 
+/* Section Title Field in Form */
+.section-title-group {
+    background: rgba(15, 23, 42, 0.55);
+    border: 1px dashed #334155;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+    transition: border-color 0.15s, background-color 0.15s;
+}
+
+.section-title-group:focus-within {
+    border-color: #3b82f6;
+    background: rgba(15, 23, 42, 0.9);
+}
+
+.section-title-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.section-title-header .form-label {
+    margin-bottom: 0;
+    color: #60a5fa;
+    font-size: 11px;
+}
+
+.section-title-tag {
+    font-size: 10px;
+    color: #94a3b8;
+    background: #1e293b;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #334155;
+    font-weight: 500;
+}
+
+.section-title-input {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
 .form-label {
     display: block;
     font-size: 12px;
@@ -568,6 +611,19 @@ body {
     padding-bottom: 2px;
     margin-top: 10px;
     margin-bottom: 6px;
+    outline: none;
+    border-radius: 2px;
+    transition: background-color 0.15s;
+}
+
+.preview-panel .cv-section-title[contenteditable="true"] {
+    cursor: text;
+}
+.preview-panel .cv-section-title[contenteditable="true"]:hover {
+    background-color: rgba(59, 130, 246, 0.08);
+}
+.preview-panel .cv-section-title[contenteditable="true"]:focus {
+    background-color: rgba(59, 130, 246, 0.12);
 }
 
 /* CV Entry */
@@ -698,7 +754,7 @@ body {
     }
 
     .cv-entry { page-break-inside: avoid; }
-    .cv-section-title { page-break-after: avoid; }
+    .cv-section-title { page-break-after: avoid; background-color: transparent !important; }
 
     @page {
         size: A4;

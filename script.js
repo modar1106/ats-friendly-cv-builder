@@ -4,6 +4,15 @@
 
 const DEFAULT_DATA = {
     language: 'id',
+    sectionTitles: {
+        education: 'PENDIDIKAN',
+        workExperience: 'PENGALAMAN KERJA',
+        relatedExperiences: 'PENGALAMAN',
+        certifications: 'SERTIFIKASI',
+        awards: 'PENGHARGAAN',
+        skills: 'KEAHLIAN',
+        summary: ''
+    },
     header: {
         name: 'Nama Kamu',
         email: 'email@example.com',
@@ -69,6 +78,15 @@ const DEFAULT_DATA = {
 
 const HAIDAR_DATA = {
     language: 'id',
+    sectionTitles: {
+        education: 'PENDIDIKAN',
+        workExperience: 'PENGALAMAN KERJA',
+        relatedExperiences: 'PENGALAMAN',
+        certifications: 'SERTIFIKASI',
+        awards: 'PENGHARGAAN',
+        skills: 'KEAHLIAN',
+        summary: ''
+    },
     header: {
         name: 'Mohamad Haidar',
         email: 'mohamadhaidar0604@gmail.com',
@@ -176,6 +194,15 @@ const HAIDAR_DATA = {
 
 const HAIDAR_DATA_EN = {
     language: 'en',
+    sectionTitles: {
+        education: 'EDUCATION',
+        workExperience: 'WORK EXPERIENCE',
+        relatedExperiences: 'RELATED EXPERIENCES',
+        certifications: 'CERTIFICATION',
+        awards: 'AWARD',
+        skills: 'SKILLS',
+        summary: ''
+    },
     header: {
         name: 'Mohamad Haidar',
         email: 'mohamadhaidar0604@gmail.com',
@@ -350,6 +377,40 @@ function checkSecretAccess() {
 let cvData = {};
 
 /* =================================================================
+   MULTI-LANGUAGE HEADERS DICTIONARY & HELPERS
+   ================================================================= */
+const SECTION_HEADERS = {
+    en: {
+        education: 'EDUCATION',
+        workExperience: 'WORK EXPERIENCE',
+        relatedExperiences: 'RELATED EXPERIENCES',
+        certifications: 'CERTIFICATION',
+        awards: 'AWARD',
+        skills: 'SKILLS'
+    },
+    id: {
+        education: 'PENDIDIKAN',
+        workExperience: 'PENGALAMAN KERJA',
+        relatedExperiences: 'PENGALAMAN',
+        certifications: 'SERTIFIKASI',
+        awards: 'PENGHARGAAN',
+        skills: 'KEAHLIAN'
+    }
+};
+
+function getDefaultSectionTitle(sectionKey) {
+    const lang = cvData.language || 'id';
+    return SECTION_HEADERS[lang]?.[sectionKey] || SECTION_HEADERS.id[sectionKey] || '';
+}
+
+function getSectionTitle(sectionKey) {
+    if (cvData.sectionTitles && cvData.sectionTitles[sectionKey] !== undefined && cvData.sectionTitles[sectionKey] !== null) {
+        return cvData.sectionTitles[sectionKey];
+    }
+    return getDefaultSectionTitle(sectionKey);
+}
+
+/* =================================================================
    LOCALSTORAGE
    ================================================================= */
 
@@ -370,6 +431,10 @@ function loadData() {
         if (saved) {
             cvData = JSON.parse(saved);
             if (!cvData.language) cvData.language = 'id';
+            const lang = cvData.language;
+            if (!cvData.sectionTitles) {
+                cvData.sectionTitles = Object.assign({}, SECTION_HEADERS[lang] || SECTION_HEADERS.id);
+            }
             return true;
         }
     } catch (e) { /* ignore parse errors */ }
@@ -779,13 +844,21 @@ function renderHeaderForm() {
 }
 
 function renderSummaryForm() {
+    const summaryTitle = cvData.sectionTitles?.summary || '';
     return `
     <div class="form-section" data-section="summary">
         <div class="form-section-header" onclick="toggleSection(this)">
-            <span class="form-section-title">Ringkasan Profil</span>
+            <span class="form-section-title">${esc(summaryTitle || 'Ringkasan Profil')}</span>
             <span class="form-section-toggle">▾</span>
         </div>
         <div class="form-section-body">
+            <div class="form-group section-title-group">
+                <div class="section-title-header">
+                    <label class="form-label">Judul Bagian (Opsional)</label>
+                    <span class="section-title-tag">Bisa Diubah</span>
+                </div>
+                <input class="form-input section-title-input" data-field="sectionTitles.summary" value="${esc(summaryTitle)}" placeholder="Contoh: RINGKASAN PROFESIONAL (Kosongkan jika tanpa judul)">
+            </div>
             <div class="form-group">
                 <textarea class="form-textarea" data-field="summary" rows="5" placeholder="Tuliskan ringkasan profesional Anda...">${esc(cvData.summary)}</textarea>
             </div>
@@ -795,6 +868,7 @@ function renderSummaryForm() {
 
 function renderEducationForm() {
     const items = cvData.education;
+    const currentTitle = getSectionTitle('education');
     let cards = items.map((item, i) => `
         <div class="entry-card">
             <div class="entry-card-header">
@@ -830,21 +904,29 @@ function renderEducationForm() {
     return `
     <div class="form-section" data-section="education">
         <div class="form-section-header" onclick="toggleSection(this)">
-            <span class="form-section-title">Pendidikan</span>
+            <span class="form-section-title">${esc(currentTitle || 'PENDIDIKAN')}</span>
             <span class="form-section-toggle">▾</span>
         </div>
         <div class="form-section-body">
+            <div class="form-group section-title-group">
+                <div class="section-title-header">
+                    <label class="form-label">Judul Bagian</label>
+                    <span class="section-title-tag">Bisa Diubah</span>
+                </div>
+                <input class="form-input section-title-input" data-field="sectionTitles.education" value="${esc(currentTitle)}" placeholder="${esc(getDefaultSectionTitle('education'))}">
+            </div>
             ${cards}
             <button class="btn-add" onclick="addEntry('education')">+ Tambah Pendidikan</button>
         </div>
     </div>`;
 }
 
-function renderExperienceCards(sectionKey, items, label) {
+function renderExperienceCards(sectionKey, items, defaultLabel) {
+    const currentTitle = getSectionTitle(sectionKey);
     let cards = items.map((item, i) => `
         <div class="entry-card">
             <div class="entry-card-header">
-                <span class="entry-card-num">${label} ${i + 1}</span>
+                <span class="entry-card-num">${defaultLabel} ${i + 1}</span>
                 <button class="btn-remove" onclick="removeEntry('${sectionKey}', ${i})" title="Hapus">✕</button>
             </div>
             <div class="form-row">
@@ -876,12 +958,19 @@ function renderExperienceCards(sectionKey, items, label) {
     return `
     <div class="form-section" data-section="${sectionKey}">
         <div class="form-section-header" onclick="toggleSection(this)">
-            <span class="form-section-title">${label}</span>
+            <span class="form-section-title">${esc(currentTitle || defaultLabel)}</span>
             <span class="form-section-toggle">▾</span>
         </div>
         <div class="form-section-body">
+            <div class="form-group section-title-group">
+                <div class="section-title-header">
+                    <label class="form-label">Judul Bagian</label>
+                    <span class="section-title-tag">Bisa Diubah</span>
+                </div>
+                <input class="form-input section-title-input" data-field="sectionTitles.${sectionKey}" value="${esc(currentTitle)}" placeholder="${esc(getDefaultSectionTitle(sectionKey))}">
+            </div>
             ${cards}
-            <button class="btn-add" onclick="addEntry('${sectionKey}')">+ Tambah ${label}</button>
+            <button class="btn-add" onclick="addEntry('${sectionKey}')">+ Tambah ${defaultLabel}</button>
         </div>
     </div>`;
 }
@@ -896,6 +985,7 @@ function renderRelatedExperiencesForm() {
 
 function renderCertificationsForm() {
     const items = cvData.certifications;
+    const currentTitle = getSectionTitle('certifications');
     let cards = items.map((item, i) => `
         <div class="entry-card">
             <div class="entry-card-header">
@@ -921,10 +1011,17 @@ function renderCertificationsForm() {
     return `
     <div class="form-section" data-section="certifications">
         <div class="form-section-header" onclick="toggleSection(this)">
-            <span class="form-section-title">Sertifikasi</span>
+            <span class="form-section-title">${esc(currentTitle || 'SERTIFIKASI')}</span>
             <span class="form-section-toggle">▾</span>
         </div>
         <div class="form-section-body">
+            <div class="form-group section-title-group">
+                <div class="section-title-header">
+                    <label class="form-label">Judul Bagian</label>
+                    <span class="section-title-tag">Bisa Diubah</span>
+                </div>
+                <input class="form-input section-title-input" data-field="sectionTitles.certifications" value="${esc(currentTitle)}" placeholder="${esc(getDefaultSectionTitle('certifications'))}">
+            </div>
             ${cards}
             <button class="btn-add" onclick="addEntry('certifications')">+ Tambah Sertifikasi</button>
         </div>
@@ -933,6 +1030,7 @@ function renderCertificationsForm() {
 
 function renderAwardsForm() {
     const items = cvData.awards;
+    const currentTitle = getSectionTitle('awards');
     let rows = items.map((item, i) => `
         <div class="bullet-row">
             <textarea class="form-textarea" data-field="awards.${i}" placeholder="Deskripsi penghargaan...">${esc(item)}</textarea>
@@ -942,10 +1040,17 @@ function renderAwardsForm() {
     return `
     <div class="form-section" data-section="awards">
         <div class="form-section-header" onclick="toggleSection(this)">
-            <span class="form-section-title">Penghargaan</span>
+            <span class="form-section-title">${esc(currentTitle || 'PENGHARGAAN')}</span>
             <span class="form-section-toggle">▾</span>
         </div>
         <div class="form-section-body">
+            <div class="form-group section-title-group">
+                <div class="section-title-header">
+                    <label class="form-label">Judul Bagian</label>
+                    <span class="section-title-tag">Bisa Diubah</span>
+                </div>
+                <input class="form-input section-title-input" data-field="sectionTitles.awards" value="${esc(currentTitle)}" placeholder="${esc(getDefaultSectionTitle('awards'))}">
+            </div>
             ${rows}
             <button class="btn-add" onclick="addEntry('awards')">+ Tambah Penghargaan</button>
         </div>
@@ -954,6 +1059,7 @@ function renderAwardsForm() {
 
 function renderSkillsForm() {
     const items = cvData.skills;
+    const currentTitle = getSectionTitle('skills');
     let cards = items.map((item, i) => `
         <div class="entry-card">
             <div class="entry-card-header">
@@ -975,10 +1081,17 @@ function renderSkillsForm() {
     return `
     <div class="form-section" data-section="skills">
         <div class="form-section-header" onclick="toggleSection(this)">
-            <span class="form-section-title">Skills</span>
+            <span class="form-section-title">${esc(currentTitle || 'KEAHLIAN')}</span>
             <span class="form-section-toggle">▾</span>
         </div>
         <div class="form-section-body">
+            <div class="form-group section-title-group">
+                <div class="section-title-header">
+                    <label class="form-label">Judul Bagian</label>
+                    <span class="section-title-tag">Bisa Diubah</span>
+                </div>
+                <input class="form-input section-title-input" data-field="sectionTitles.skills" value="${esc(currentTitle)}" placeholder="${esc(getDefaultSectionTitle('skills'))}">
+            </div>
             ${cards}
             <button class="btn-add" onclick="addEntry('skills')">+ Tambah Kategori Skill</button>
         </div>
@@ -1006,6 +1119,20 @@ function handleFormInput(e) {
 
     const parts = field.split('.');
     setNestedValue(cvData, parts, el.value);
+
+    // If section title was edited, update the accordion header title in real-time
+    if (parts[0] === 'sectionTitles') {
+        const secKey = parts[1];
+        const secEl = document.querySelector(`.form-section[data-section="${secKey}"]`);
+        if (secEl) {
+            const titleSpan = secEl.querySelector('.form-section-title');
+            if (titleSpan) {
+                const fallback = getDefaultSectionTitle(secKey) || (secKey === 'summary' ? 'Ringkasan Profil' : secKey);
+                titleSpan.textContent = el.value.trim() || fallback;
+            }
+        }
+    }
+
     renderPreview();
     saveData();
 }
@@ -1014,6 +1141,9 @@ function setNestedValue(obj, parts, value) {
     let current = obj;
     for (let i = 0; i < parts.length - 1; i++) {
         const key = isNaN(parts[i]) ? parts[i] : parseInt(parts[i]);
+        if (current[key] === undefined || current[key] === null) {
+            current[key] = {};
+        }
         current = current[key];
     }
     const lastKey = isNaN(parts[parts.length - 1]) ? parts[parts.length - 1] : parseInt(parts[parts.length - 1]);
@@ -1075,28 +1205,10 @@ function toggleSection(headerEl) {
 }
 
 /* =================================================================
-   MULTI-LANGUAGE HEADERS DICTIONARY
+   CHANGE LANGUAGE
    ================================================================= */
-const SECTION_HEADERS = {
-    en: {
-        education: 'EDUCATION',
-        workExperience: 'WORK EXPERIENCE',
-        relatedExperiences: 'RELATED EXPERIENCES',
-        certifications: 'CERTIFICATION',
-        awards: 'AWARD',
-        skills: 'SKILLS'
-    },
-    id: {
-        education: 'PENDIDIKAN',
-        workExperience: 'PENGALAMAN KERJA',
-        relatedExperiences: 'PENGALAMAN',
-        certifications: 'SERTIFIKASI',
-        awards: 'PENGHARGAAN',
-        skills: 'KEAHLIAN'
-    }
-};
-
 function changeLanguage(lang) {
+    const prevLang = cvData.language || 'id';
     cvData.language = lang;
     
     // Sync both select elements if they exist
@@ -1105,6 +1217,21 @@ function changeLanguage(lang) {
     const langSelectDropdown = document.getElementById('langSelectDropdown');
     if (langSelectDropdown) langSelectDropdown.value = lang;
 
+    // Smart sync for sectionTitles:
+    // If a title matches the previous language default or is empty, update it to the new language default
+    if (!cvData.sectionTitles) {
+        cvData.sectionTitles = Object.assign({}, SECTION_HEADERS[lang] || SECTION_HEADERS.id);
+    } else {
+        const prevHeaders = SECTION_HEADERS[prevLang] || SECTION_HEADERS.id;
+        const newHeaders = SECTION_HEADERS[lang] || SECTION_HEADERS.id;
+        Object.keys(newHeaders).forEach(key => {
+            if (!cvData.sectionTitles[key] || cvData.sectionTitles[key] === prevHeaders[key]) {
+                cvData.sectionTitles[key] = newHeaders[key];
+            }
+        });
+    }
+
+    renderForm();
     renderPreview();
     saveData();
 }
@@ -1149,21 +1276,21 @@ function renderPreview() {
     }
 
     // Summary
+    const summaryTitle = cvData.sectionTitles?.summary;
     if (cvData.summary && cvData.summary.trim()) {
+        if (summaryTitle && summaryTitle.trim()) {
+            html += `<div class="cv-section-title" data-section-key="summary" contenteditable="true" title="Klik untuk mengedit judul">${esc(summaryTitle)}</div>`;
+        }
         html += `<p class="cv-summary">${esc(cvData.summary)}</p>`;
     }
 
-    // Headers translation
-    const lang = cvData.language || 'id';
-    const headers = SECTION_HEADERS[lang] || SECTION_HEADERS.id;
-
     // Sections
-    html += renderPreviewSection(headers.education, cvData.education, 'edu');
-    html += renderPreviewSection(headers.workExperience, cvData.workExperience, 'exp');
-    html += renderPreviewSection(headers.relatedExperiences, cvData.relatedExperiences, 'exp');
-    html += renderPreviewCertifications(headers.certifications);
-    html += renderPreviewAwards(headers.awards);
-    html += renderPreviewSkills(headers.skills);
+    html += renderPreviewSection(getSectionTitle('education'), cvData.education, 'edu', 'education');
+    html += renderPreviewSection(getSectionTitle('workExperience'), cvData.workExperience, 'exp', 'workExperience');
+    html += renderPreviewSection(getSectionTitle('relatedExperiences'), cvData.relatedExperiences, 'exp', 'relatedExperiences');
+    html += renderPreviewCertifications(getSectionTitle('certifications'));
+    html += renderPreviewAwards(getSectionTitle('awards'));
+    html += renderPreviewSkills(getSectionTitle('skills'));
 
     tempDiv.innerHTML = html;
     document.body.appendChild(tempDiv);
@@ -1244,14 +1371,14 @@ function renderPreview() {
     applyZoom();
 }
 
-function renderPreviewSection(title, items, type) {
+function renderPreviewSection(title, items, type, sectionKey) {
     const validItems = items.filter(item => {
         if (type === 'edu') return item.institution || item.degree;
         return item.company || item.role;
     });
     if (!validItems.length) return '';
 
-    let html = `<div class="cv-section-title">${title}</div>`;
+    let html = title ? `<div class="cv-section-title" data-section-key="${sectionKey || ''}" contenteditable="true" title="Klik untuk mengedit judul">${esc(title)}</div>` : '';
     validItems.forEach(item => {
         const mainTitle = type === 'edu' ? item.institution : item.company;
         const subtitle = type === 'edu' ? item.degree : item.role;
@@ -1276,7 +1403,7 @@ function renderPreviewSection(title, items, type) {
 function renderPreviewCertifications(title) {
     const valid = cvData.certifications.filter(c => c.name);
     if (!valid.length) return '';
-    let html = `<div class="cv-section-title">${title}</div>`;
+    let html = title ? `<div class="cv-section-title" data-section-key="certifications" contenteditable="true" title="Klik untuk mengedit judul">${esc(title)}</div>` : '';
     valid.forEach(c => {
         html += `<div class="cv-entry">
             <div class="cv-entry-header">
@@ -1294,16 +1421,16 @@ function renderPreviewCertifications(title) {
 function renderPreviewAwards(title) {
     const valid = cvData.awards.filter(a => a.trim());
     if (!valid.length) return '';
-    let html = `<div class="cv-section-title">${title}</div>
-        <div class="cv-entry"><ul>${valid.map(a => `<li>${esc(a)}</li>`).join('')}</ul></div>`;
+    let html = title ? `<div class="cv-section-title" data-section-key="awards" contenteditable="true" title="Klik untuk mengedit judul">${esc(title)}</div>
+        <div class="cv-entry"><ul>${valid.map(a => `<li>${esc(a)}</li>`).join('')}</ul></div>` : '';
     return html;
 }
 
 function renderPreviewSkills(title) {
     const valid = cvData.skills.filter(s => s.category || s.items);
     if (!valid.length) return '';
-    let html = `<div class="cv-section-title">${title}</div>
-        <div class="cv-entry"><ul class="cv-skills-list">`;
+    let html = title ? `<div class="cv-section-title" data-section-key="skills" contenteditable="true" title="Klik untuk mengedit judul">${esc(title)}</div>
+        <div class="cv-entry"><ul class="cv-skills-list">` : '<div class="cv-entry"><ul class="cv-skills-list">';
     valid.forEach(s => {
         if (s.category && s.items) {
             html += `<li><strong>${esc(s.category)}:</strong> ${esc(s.items)}</li>`;
@@ -1428,6 +1555,48 @@ document.addEventListener('click', (e) => {
 });
 
 /* =================================================================
+   INLINE PREVIEW TITLE EDITING LISTENERS
+   ================================================================= */
+function setupPreviewListeners() {
+    const preview = document.getElementById('previewPanel');
+    if (!preview || preview.dataset.hasListener) return;
+    preview.dataset.hasListener = 'true';
+
+    // When user finishes inline editing a title in the preview (focusout / blur)
+    preview.addEventListener('focusout', (e) => {
+        const titleEl = e.target.closest('.cv-section-title');
+        if (titleEl && titleEl.dataset.sectionKey) {
+            const secKey = titleEl.dataset.sectionKey;
+            const newTitle = titleEl.textContent.trim();
+            if (!cvData.sectionTitles) cvData.sectionTitles = {};
+            cvData.sectionTitles[secKey] = newTitle;
+
+            // Sync to form input
+            const input = document.querySelector(`input[data-field="sectionTitles.${secKey}"]`);
+            if (input) input.value = newTitle;
+
+            // Sync to form section accordion header
+            const secEl = document.querySelector(`.form-section[data-section="${secKey}"]`);
+            if (secEl) {
+                const headerTitle = secEl.querySelector('.form-section-title');
+                if (headerTitle) {
+                    headerTitle.textContent = newTitle || getDefaultSectionTitle(secKey) || (secKey === 'summary' ? 'Ringkasan Profil' : secKey);
+                }
+            }
+
+            saveData();
+        }
+    });
+
+    preview.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && e.target.classList.contains('cv-section-title')) {
+            e.preventDefault();
+            e.target.blur();
+        }
+    });
+}
+
+/* =================================================================
    INIT
    ================================================================= */
 function init() {
@@ -1443,6 +1612,7 @@ function init() {
     
     renderForm();
     renderPreview();
+    setupPreviewListeners();
 }
 
 init();
