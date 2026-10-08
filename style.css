@@ -414,6 +414,102 @@ body {
     margin-bottom: 10px;
 }
 
+.entry-card-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.entry-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.drag-handle {
+    color: #64748b;
+    cursor: grab;
+    font-size: 14px;
+    font-weight: bold;
+    user-select: none;
+    padding: 2px 5px;
+    border-radius: 4px;
+    transition: color 0.15s, background-color 0.15s;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+}
+
+.drag-handle:hover,
+.entry-card-header:hover .drag-handle,
+.bullet-row:hover .drag-handle {
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.12);
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+
+.drag-handle-bullet {
+    font-size: 13px;
+    padding: 8px 3px;
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+
+.btn-move {
+    background: #0f172a;
+    border: 1px solid #334155;
+    color: #94a3b8;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    font-size: 9px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    padding: 0;
+}
+
+.btn-move:hover:not(:disabled) {
+    background: #1e293b;
+    color: #38bdf8;
+    border-color: #38bdf8;
+}
+
+.btn-move:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+    border-color: transparent;
+}
+
+.btn-move-sm {
+    width: 22px;
+    height: 22px;
+    font-size: 8px;
+}
+
+/* Drag & Drop Visual Feedback */
+.entry-card[draggable="true"] {
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.entry-card.dragging {
+    opacity: 0.45;
+    transform: scale(0.98);
+    border: 2px dashed #3b82f6 !important;
+    background: #0f172a !important;
+}
+
+.entry-card.drag-over {
+    border-color: #60a5fa !important;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+    background: #1e293b;
+}
+
 .entry-card-num {
     font-size: 11px;
     font-weight: 700;
@@ -463,13 +559,36 @@ body {
     gap: 8px;
     margin-bottom: 6px;
     align-items: flex-start;
+    padding: 2px 0;
+    border-radius: 6px;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
 }
+
+.bullet-row.dragging {
+    opacity: 0.45;
+    border: 1px dashed #3b82f6 !important;
+}
+
+.bullet-row.drag-over {
+    border-color: #60a5fa !important;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+    background: #0f172a;
+}
+
+.bullet-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
+    flex-shrink: 0;
+}
+
 .bullet-row .form-textarea {
     min-height: 42px;
     flex: 1;
 }
 .bullet-row .btn-remove {
-    margin-top: 6px;
+    margin-top: 0;
     flex-shrink: 0;
 }
 

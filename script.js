@@ -454,8 +454,26 @@ function esc(str) {
 /* =================================================================
    RENDER FORM
    ================================================================= */
+function getCollapsedSections() {
+    const collapsed = [];
+    document.querySelectorAll('.form-section.collapsed').forEach(el => {
+        if (el.dataset.section) collapsed.push(el.dataset.section);
+    });
+    return collapsed;
+}
+
+function restoreCollapsedSections(collapsed) {
+    if (!collapsed || !collapsed.length) return;
+    collapsed.forEach(sec => {
+        const el = document.querySelector(`.form-section[data-section="${sec}"]`);
+        if (el) el.classList.add('collapsed');
+    });
+}
+
 function renderForm() {
     const editor = document.getElementById('editorPanel');
+    const collapsed = getCollapsedSections();
+
     editor.innerHTML = `
         <div class="credit-banner">
             <span>© Mohamad Haidar</span>
@@ -473,8 +491,14 @@ function renderForm() {
         ${renderAwardsForm()}
         ${renderSkillsForm()}
     `;
-    // Attach input listeners using event delegation
-    editor.addEventListener('input', handleFormInput);
+
+    restoreCollapsedSections(collapsed);
+
+    if (!editor.dataset.hasInputListener) {
+        editor.addEventListener('input', handleFormInput);
+        editor.dataset.hasInputListener = 'true';
+    }
+    setupDragAndDrop();
 }
 
 function renderJobDescriptionForm() {
@@ -870,10 +894,17 @@ function renderEducationForm() {
     const items = cvData.education;
     const currentTitle = getSectionTitle('education');
     let cards = items.map((item, i) => `
-        <div class="entry-card">
+        <div class="entry-card" draggable="true" data-section="education" data-index="${i}">
             <div class="entry-card-header">
-                <span class="entry-card-num">Pendidikan ${i + 1}</span>
-                <button class="btn-remove" onclick="removeEntry('education', ${i})" title="Hapus">✕</button>
+                <div class="entry-card-header-left">
+                    <span class="drag-handle" title="Tahan & geser untuk mengubah urutan">⋮⋮</span>
+                    <span class="entry-card-num">Pendidikan ${i + 1}</span>
+                </div>
+                <div class="entry-card-actions">
+                    <button type="button" class="btn-move" onclick="moveEntry('education', ${i}, -1)" ${i === 0 ? 'disabled' : ''} title="Pindah ke Atas">▲</button>
+                    <button type="button" class="btn-move" onclick="moveEntry('education', ${i}, 1)" ${i === items.length - 1 ? 'disabled' : ''} title="Pindah ke Bawah">▼</button>
+                    <button type="button" class="btn-remove" onclick="removeEntry('education', ${i})" title="Hapus">✕</button>
+                </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
@@ -924,10 +955,17 @@ function renderEducationForm() {
 function renderExperienceCards(sectionKey, items, defaultLabel) {
     const currentTitle = getSectionTitle(sectionKey);
     let cards = items.map((item, i) => `
-        <div class="entry-card">
+        <div class="entry-card" draggable="true" data-section="${sectionKey}" data-index="${i}">
             <div class="entry-card-header">
-                <span class="entry-card-num">${defaultLabel} ${i + 1}</span>
-                <button class="btn-remove" onclick="removeEntry('${sectionKey}', ${i})" title="Hapus">✕</button>
+                <div class="entry-card-header-left">
+                    <span class="drag-handle" title="Tahan & geser untuk mengubah urutan">⋮⋮</span>
+                    <span class="entry-card-num">${defaultLabel} ${i + 1}</span>
+                </div>
+                <div class="entry-card-actions">
+                    <button type="button" class="btn-move" onclick="moveEntry('${sectionKey}', ${i}, -1)" ${i === 0 ? 'disabled' : ''} title="Pindah ke Atas">▲</button>
+                    <button type="button" class="btn-move" onclick="moveEntry('${sectionKey}', ${i}, 1)" ${i === items.length - 1 ? 'disabled' : ''} title="Pindah ke Bawah">▼</button>
+                    <button type="button" class="btn-remove" onclick="removeEntry('${sectionKey}', ${i})" title="Hapus">✕</button>
+                </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
@@ -987,10 +1025,17 @@ function renderCertificationsForm() {
     const items = cvData.certifications;
     const currentTitle = getSectionTitle('certifications');
     let cards = items.map((item, i) => `
-        <div class="entry-card">
+        <div class="entry-card" draggable="true" data-section="certifications" data-index="${i}">
             <div class="entry-card-header">
-                <span class="entry-card-num">Sertifikasi ${i + 1}</span>
-                <button class="btn-remove" onclick="removeEntry('certifications', ${i})" title="Hapus">✕</button>
+                <div class="entry-card-header-left">
+                    <span class="drag-handle" title="Tahan & geser untuk mengubah urutan">⋮⋮</span>
+                    <span class="entry-card-num">Sertifikasi ${i + 1}</span>
+                </div>
+                <div class="entry-card-actions">
+                    <button type="button" class="btn-move" onclick="moveEntry('certifications', ${i}, -1)" ${i === 0 ? 'disabled' : ''} title="Pindah ke Atas">▲</button>
+                    <button type="button" class="btn-move" onclick="moveEntry('certifications', ${i}, 1)" ${i === items.length - 1 ? 'disabled' : ''} title="Pindah ke Bawah">▼</button>
+                    <button type="button" class="btn-remove" onclick="removeEntry('certifications', ${i})" title="Hapus">✕</button>
+                </div>
             </div>
             <div class="form-group">
                 <label class="form-label">Nama Sertifikasi</label>
@@ -1031,10 +1076,20 @@ function renderCertificationsForm() {
 function renderAwardsForm() {
     const items = cvData.awards;
     const currentTitle = getSectionTitle('awards');
-    let rows = items.map((item, i) => `
-        <div class="bullet-row">
+    let cards = items.map((item, i) => `
+        <div class="entry-card" draggable="true" data-section="awards" data-index="${i}">
+            <div class="entry-card-header">
+                <div class="entry-card-header-left">
+                    <span class="drag-handle" title="Tahan & geser untuk mengubah urutan">⋮⋮</span>
+                    <span class="entry-card-num">Penghargaan ${i + 1}</span>
+                </div>
+                <div class="entry-card-actions">
+                    <button type="button" class="btn-move" onclick="moveEntry('awards', ${i}, -1)" ${i === 0 ? 'disabled' : ''} title="Pindah ke Atas">▲</button>
+                    <button type="button" class="btn-move" onclick="moveEntry('awards', ${i}, 1)" ${i === items.length - 1 ? 'disabled' : ''} title="Pindah ke Bawah">▼</button>
+                    <button type="button" class="btn-remove" onclick="removeEntry('awards', ${i})" title="Hapus">✕</button>
+                </div>
+            </div>
             <textarea class="form-textarea" data-field="awards.${i}" placeholder="Deskripsi penghargaan...">${esc(item)}</textarea>
-            <button class="btn-remove" onclick="removeEntry('awards', ${i})" title="Hapus">✕</button>
         </div>
     `).join('');
     return `
@@ -1051,7 +1106,7 @@ function renderAwardsForm() {
                 </div>
                 <input class="form-input section-title-input" data-field="sectionTitles.awards" value="${esc(currentTitle)}" placeholder="${esc(getDefaultSectionTitle('awards'))}">
             </div>
-            ${rows}
+            ${cards}
             <button class="btn-add" onclick="addEntry('awards')">+ Tambah Penghargaan</button>
         </div>
     </div>`;
@@ -1061,10 +1116,17 @@ function renderSkillsForm() {
     const items = cvData.skills;
     const currentTitle = getSectionTitle('skills');
     let cards = items.map((item, i) => `
-        <div class="entry-card">
+        <div class="entry-card" draggable="true" data-section="skills" data-index="${i}">
             <div class="entry-card-header">
-                <span class="entry-card-num">Kategori ${i + 1}</span>
-                <button class="btn-remove" onclick="removeEntry('skills', ${i})" title="Hapus">✕</button>
+                <div class="entry-card-header-left">
+                    <span class="drag-handle" title="Tahan & geser untuk mengubah urutan">⋮⋮</span>
+                    <span class="entry-card-num">Kategori ${i + 1}</span>
+                </div>
+                <div class="entry-card-actions">
+                    <button type="button" class="btn-move" onclick="moveEntry('skills', ${i}, -1)" ${i === 0 ? 'disabled' : ''} title="Pindah ke Atas">▲</button>
+                    <button type="button" class="btn-move" onclick="moveEntry('skills', ${i}, 1)" ${i === items.length - 1 ? 'disabled' : ''} title="Pindah ke Bawah">▼</button>
+                    <button type="button" class="btn-remove" onclick="removeEntry('skills', ${i})" title="Hapus">✕</button>
+                </div>
             </div>
             <div class="form-row">
                 <div class="form-group" style="flex:0.4">
@@ -1100,9 +1162,14 @@ function renderSkillsForm() {
 
 function renderBullets(sectionKey, entryIdx, bullets) {
     return bullets.map((b, bi) => `
-        <div class="bullet-row">
+        <div class="bullet-row" draggable="true" data-bullet-sec="${sectionKey}" data-entry-idx="${entryIdx}" data-bullet-idx="${bi}">
+            <span class="drag-handle drag-handle-bullet" title="Tahan & geser untuk mengubah urutan poin">⋮⋮</span>
             <textarea class="form-textarea" data-field="${sectionKey}.${entryIdx}.bullets.${bi}" placeholder="Tuliskan pencapaian atau tanggung jawab...">${esc(b)}</textarea>
-            <button class="btn-remove" onclick="removeBullet('${sectionKey}', ${entryIdx}, ${bi})" title="Hapus">✕</button>
+            <div class="bullet-actions">
+                <button type="button" class="btn-move btn-move-sm" onclick="moveBullet('${sectionKey}', ${entryIdx}, ${bi}, -1)" ${bi === 0 ? 'disabled' : ''} title="Pindah ke Atas">▲</button>
+                <button type="button" class="btn-move btn-move-sm" onclick="moveBullet('${sectionKey}', ${entryIdx}, ${bi}, 1)" ${bi === bullets.length - 1 ? 'disabled' : ''} title="Pindah ke Bawah">▼</button>
+                <button type="button" class="btn-remove" onclick="removeBullet('${sectionKey}', ${entryIdx}, ${bi})" title="Hapus">✕</button>
+            </div>
         </div>
     `).join('') + `
         <button class="btn-add" onclick="addBullet('${sectionKey}', ${entryIdx})" style="margin-top:4px">+ Tambah Poin</button>
@@ -1195,6 +1262,175 @@ function removeBullet(sectionKey, entryIdx, bulletIdx) {
     renderForm();
     renderPreview();
     saveData();
+}
+
+/* =================================================================
+   REORDER / MOVE ENTRIES & BULLETS
+   ================================================================= */
+function moveEntry(sectionKey, fromIndex, direction) {
+    const toIndex = fromIndex + direction;
+    const arr = cvData[sectionKey];
+    if (!arr || toIndex < 0 || toIndex >= arr.length) return;
+
+    const [item] = arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, item);
+
+    renderForm();
+    renderPreview();
+    saveData();
+}
+
+function reorderEntry(sectionKey, fromIndex, toIndex) {
+    const arr = cvData[sectionKey];
+    if (!arr || fromIndex === toIndex || fromIndex < 0 || fromIndex >= arr.length || toIndex < 0 || toIndex >= arr.length) return;
+
+    const [item] = arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, item);
+
+    renderForm();
+    renderPreview();
+    saveData();
+}
+
+function moveBullet(sectionKey, entryIdx, fromIdx, direction) {
+    const toIdx = fromIdx + direction;
+    const bullets = cvData[sectionKey][entryIdx].bullets;
+    if (!bullets || toIdx < 0 || toIdx >= bullets.length) return;
+
+    const [item] = bullets.splice(fromIdx, 1);
+    bullets.splice(toIdx, 0, item);
+
+    renderForm();
+    renderPreview();
+    saveData();
+}
+
+function reorderBullet(sectionKey, entryIdx, fromIdx, toIdx) {
+    const bullets = cvData[sectionKey][entryIdx].bullets;
+    if (!bullets || fromIdx === toIdx || fromIdx < 0 || fromIdx >= bullets.length || toIdx < 0 || toIdx >= bullets.length) return;
+
+    const [item] = bullets.splice(fromIdx, 1);
+    bullets.splice(toIdx, 0, item);
+
+    renderForm();
+    renderPreview();
+    saveData();
+}
+
+/* =================================================================
+   DRAG & DROP REORDERING LISTENERS
+   ================================================================= */
+let dragPayload = null;
+
+function setupDragAndDrop() {
+    const editor = document.getElementById('editorPanel');
+    if (!editor || editor.dataset.hasDragListener) return;
+    editor.dataset.hasDragListener = 'true';
+
+    editor.addEventListener('dragstart', (e) => {
+        // Prevent drag when user interacts with inputs, textareas, or buttons
+        if (['INPUT', 'TEXTAREA', 'BUTTON', 'SELECT'].includes(e.target.tagName) || e.target.closest('button')) {
+            e.preventDefault();
+            return;
+        }
+
+        const bullet = e.target.closest('.bullet-row[draggable="true"]');
+        const card = e.target.closest('.entry-card[draggable="true"]');
+
+        if (bullet && (e.target.closest('.drag-handle-bullet') || !card)) {
+            dragPayload = {
+                type: 'bullet',
+                section: bullet.dataset.bulletSec,
+                entryIndex: parseInt(bullet.dataset.entryIdx, 10),
+                index: parseInt(bullet.dataset.bulletIdx, 10)
+            };
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', JSON.stringify(dragPayload));
+            setTimeout(() => bullet.classList.add('dragging'), 0);
+        } else if (card) {
+            dragPayload = {
+                type: 'card',
+                section: card.dataset.section,
+                index: parseInt(card.dataset.index, 10)
+            };
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', JSON.stringify(dragPayload));
+            setTimeout(() => card.classList.add('dragging'), 0);
+        }
+    });
+
+    editor.addEventListener('dragover', (e) => {
+        if (!dragPayload) return;
+
+        if (dragPayload.type === 'card') {
+            const targetCard = e.target.closest('.entry-card[draggable="true"]');
+            if (targetCard && targetCard.dataset.section === dragPayload.section) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                clearDragOverClasses();
+                targetCard.classList.add('drag-over');
+            }
+        } else if (dragPayload.type === 'bullet') {
+            const targetBullet = e.target.closest('.bullet-row[draggable="true"]');
+            if (targetBullet && 
+                targetBullet.dataset.bulletSec === dragPayload.section && 
+                targetBullet.dataset.entryIdx === String(dragPayload.entryIndex)) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                clearDragOverClasses();
+                targetBullet.classList.add('drag-over');
+            }
+        }
+    });
+
+    editor.addEventListener('dragleave', (e) => {
+        const related = e.relatedTarget;
+        const currentTarget = e.target.closest('.entry-card, .bullet-row');
+        if (currentTarget && (!related || !currentTarget.contains(related))) {
+            currentTarget.classList.remove('drag-over');
+        }
+    });
+
+    editor.addEventListener('drop', (e) => {
+        if (!dragPayload) return;
+        e.preventDefault();
+
+        if (dragPayload.type === 'card') {
+            const targetCard = e.target.closest('.entry-card[draggable="true"]');
+            if (targetCard && targetCard.dataset.section === dragPayload.section) {
+                const targetIndex = parseInt(targetCard.dataset.index, 10);
+                if (dragPayload.index !== targetIndex) {
+                    reorderEntry(dragPayload.section, dragPayload.index, targetIndex);
+                }
+            }
+        } else if (dragPayload.type === 'bullet') {
+            const targetBullet = e.target.closest('.bullet-row[draggable="true"]');
+            if (targetBullet && 
+                targetBullet.dataset.bulletSec === dragPayload.section && 
+                targetBullet.dataset.entryIdx === String(dragPayload.entryIndex)) {
+                const targetIndex = parseInt(targetBullet.dataset.bulletIdx, 10);
+                if (dragPayload.index !== targetIndex) {
+                    reorderBullet(dragPayload.section, dragPayload.entryIndex, dragPayload.index, targetIndex);
+                }
+            }
+        }
+
+        cleanupDrag();
+    });
+
+    editor.addEventListener('dragend', () => {
+        cleanupDrag();
+    });
+}
+
+function clearDragOverClasses() {
+    document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+}
+
+function cleanupDrag() {
+    dragPayload = null;
+    clearDragOverClasses();
+    document.querySelectorAll('.dragging').forEach(el => el.classList.remove('dragging'));
 }
 
 /* =================================================================
@@ -1613,6 +1849,7 @@ function init() {
     renderForm();
     renderPreview();
     setupPreviewListeners();
+    setupDragAndDrop();
 }
 
 init();
