@@ -18,7 +18,9 @@ const DEFAULT_DATA = {
         email: 'email@example.com',
         phone: '+62 812 3456 7890',
         website: 'linkedin.com/in/namakamu',
-        address: 'Jakarta, Indonesia'
+        address: 'Jakarta, Indonesia',
+        photo: '',
+        photoShape: 'portrait'
     },
     summary: 'Pengembang Perangkat Lunak yang berdedikasi dan berorientasi pada hasil dengan pengalaman dalam membangun aplikasi web dan mobile yang responsif, efisien, dan ramah pengguna. Memiliki keahlian kuat dalam JavaScript, React, Node.js, serta pengembangan API. Terbiasa bekerja dalam tim kolaboratif dengan pendekatan metodologi Agile.',
     education: [
@@ -92,7 +94,9 @@ const HAIDAR_DATA = {
         email: 'mohamadhaidar0604@gmail.com',
         phone: '+62 87781303342',
         website: 'm-haidar.my.id',
-        address: 'Serang, Banten, Indonesia'
+        address: 'Serang, Banten, Indonesia',
+        photo: '',
+        photoShape: 'portrait'
     },
     summary: 'Mahasiswa IT yang bermotivasi tinggi, Owner & Freelance Fullstack Developer di Build By Dare, serta alumni program bergengsi Bangkit Academy. Memiliki keahlian kuat dalam pengembangan aplikasi web dan mobile (Next.js, Laravel, React.js, Kotlin, PostgreSQL) serta perancangan antarmuka UI/UX. Berpengalaman membangun berbagai produk digital mandiri dan proyek klien seperti InventoryKu, Festivo, ArusKu, SmartFarm, dan platform Fintech. Berkomitmen untuk terus berinovasi dan memberikan dampak positif dalam tim teknik yang dinamis.',
     education: [
@@ -208,7 +212,9 @@ const HAIDAR_DATA_EN = {
         email: 'mohamadhaidar0604@gmail.com',
         phone: '+62 87781303342',
         website: 'm-haidar.my.id',
-        address: 'Serang, Banten, Indonesia'
+        address: 'Serang, Banten, Indonesia',
+        photo: '',
+        photoShape: 'portrait'
     },
     summary: 'Highly motivated IT student, Founder & Freelance Fullstack Developer at Build By Dare, and alumnus of the prestigious Bangkit Academy (Google, GoTo, Traveloka). Possesses strong expertise in full-stack web and mobile application engineering (Next.js, Laravel, React.js, Kotlin, PostgreSQL) as well as UI/UX design. Experienced in building diverse digital products including InventoryKu, Festivo, ArusKu, SmartFarm, and Fintech systems. Committed to continuous innovation and delivering impactful technology solutions within dynamic engineering teams.',
     education: [
@@ -435,6 +441,9 @@ function loadData() {
             if (!cvData.sectionTitles) {
                 cvData.sectionTitles = Object.assign({}, SECTION_HEADERS[lang] || SECTION_HEADERS.id);
             }
+            if (!cvData.header) cvData.header = {};
+            if (cvData.header.photo === undefined) cvData.header.photo = '';
+            if (!cvData.header.photoShape) cvData.header.photoShape = 'portrait';
             return true;
         }
     } catch (e) { /* ignore parse errors */ }
@@ -499,6 +508,7 @@ function renderForm() {
         editor.dataset.hasInputListener = 'true';
     }
     setupDragAndDrop();
+    setupPhotoDropzone();
 }
 
 function renderJobDescriptionForm() {
@@ -830,18 +840,179 @@ function generateFromJobDescription(text) {
     saveData();
 }
 
+/* =================================================================
+   PHOTO UPLOAD HANDLERS
+   ================================================================= */
+function processPhotoFile(file) {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+        alert('Silakan pilih file gambar yang valid (JPG, PNG, WebP).');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+            // Compress and resize to max dimension 480px for crisp print quality while keeping payload ~30KB
+            const maxDim = 480;
+            let width = img.width;
+            let height = img.height;
+
+            if (width > maxDim || height > maxDim) {
+                if (width > height) {
+                    height = Math.round((height * maxDim) / width);
+                    width = maxDim;
+                } else {
+                    width = Math.round((width * maxDim) / height);
+                    height = maxDim;
+                }
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.88);
+            if (!cvData.header) cvData.header = {};
+            cvData.header.photo = compressedBase64;
+            if (!cvData.header.photoShape) cvData.header.photoShape = 'portrait';
+
+            renderForm();
+            renderPreview();
+            saveData();
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+function handlePhotoFileInput(event) {
+    const file = event.target.files && event.target.files[0];
+    if (file) {
+        processPhotoFile(file);
+    }
+}
+
+function removePhoto() {
+    if (cvData.header) {
+        cvData.header.photo = '';
+    }
+    renderForm();
+    renderPreview();
+    saveData();
+}
+
+function setPhotoShape(shape) {
+    if (!cvData.header) cvData.header = {};
+    cvData.header.photoShape = shape;
+    renderForm();
+    renderPreview();
+    saveData();
+}
+
+function setupPhotoDropzone() {
+    const dropzone = document.getElementById('photoDropzone');
+    if (!dropzone) return;
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.classList.add('drag-over');
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.classList.remove('drag-over');
+        });
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files && files.length > 0) {
+            processPhotoFile(files[0]);
+        }
+    });
+}
+
 function renderHeaderForm() {
     const h = cvData.header;
+    const photo = h.photo || '';
+    const shape = h.photoShape || 'portrait';
+    const isEn = cvData.language === 'en';
+
+    let photoHtml = '';
+    if (photo) {
+        photoHtml = `
+        <div class="photo-upload-group">
+            <label class="form-label">${isEn ? 'Candidate Photo (Placed on Left)' : 'Foto Kandidat (Tampil di Sebelah Kiri)'}</label>
+            <div class="photo-preview-card">
+                <div class="photo-thumb-container shape-${shape}">
+                    <img src="${photo}" alt="Foto Profil" class="photo-thumb">
+                </div>
+                <div class="photo-preview-info">
+                    <div style="font-size: 12px; font-weight: 600; color: #f1f5f9; margin-bottom: 2px;">
+                        ${isEn ? 'Photo Uploaded' : 'Foto Berhasil Diunggah'}
+                    </div>
+                    <div style="font-size: 11px; color: #94a3b8;">
+                        ${isEn ? 'Appears on the left side of CV header' : 'Ditampilkan di sebelah kiri header CV'}
+                    </div>
+                    <div class="photo-shape-selector">
+                        <span style="font-size: 11px; color: #94a3b8;">${isEn ? 'Shape:' : 'Bentuk:'}</span>
+                        <button type="button" class="photo-shape-btn ${shape === 'portrait' ? 'active' : ''}" onclick="setPhotoShape('portrait')">${isEn ? 'Portrait (3:4)' : 'Pas Foto (3:4)'}</button>
+                        <button type="button" class="photo-shape-btn ${shape === 'square' ? 'active' : ''}" onclick="setPhotoShape('square')">${isEn ? 'Square (1:1)' : 'Kotak (1:1)'}</button>
+                        <button type="button" class="photo-shape-btn ${shape === 'circle' ? 'active' : ''}" onclick="setPhotoShape('circle')">${isEn ? 'Circle' : 'Bulat'}</button>
+                    </div>
+                    <div class="photo-preview-actions">
+                        <input type="file" id="photoFileInput" accept="image/png, image/jpeg, image/webp" style="display: none;" onchange="handlePhotoFileInput(event)">
+                        <button type="button" class="btn btn-ghost" style="padding: 4px 10px; font-size: 11px;" onclick="document.getElementById('photoFileInput').click()">
+                            ${isEn ? 'Change Photo' : 'Ganti Foto'}
+                        </button>
+                        <button type="button" class="btn btn-danger" style="padding: 4px 10px; font-size: 11px;" onclick="removePhoto()">
+                            ${isEn ? 'Remove Photo' : 'Hapus Foto'}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    } else {
+        photoHtml = `
+        <div class="photo-upload-group">
+            <input type="file" id="photoFileInput" accept="image/png, image/jpeg, image/webp" style="display: none;" onchange="handlePhotoFileInput(event)">
+            <div class="photo-upload-dropzone" id="photoDropzone" onclick="document.getElementById('photoFileInput').click()">
+                <svg class="photo-dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <rect x="3" y="3" width="18" height="18" rx="4" ry="4"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                <div class="photo-dropzone-title">
+                    ${isEn ? 'Upload Candidate Photo (Optional)' : 'Unggah Foto Kandidat (Opsional)'}
+                </div>
+                <div class="photo-dropzone-sub">
+                    ${isEn ? 'Click or drag photo here • Will be placed on left side' : 'Klik atau tarik foto ke sini • Akan diletakkan di sebelah kiri'}
+                </div>
+            </div>
+        </div>`;
+    }
+
     return `
     <div class="form-section" data-section="header">
         <div class="form-section-header" onclick="toggleSection(this)">
-            <span class="form-section-title">Informasi Pribadi</span>
+            <span class="form-section-title">${isEn ? 'Personal Information' : 'Informasi Pribadi'}</span>
             <span class="form-section-toggle">▾</span>
         </div>
         <div class="form-section-body">
+            ${photoHtml}
             <div class="form-group">
-                <label class="form-label">Nama Lengkap</label>
-                <input class="form-input" data-field="header.name" value="${esc(h.name)}" placeholder="Nama lengkap Anda">
+                <label class="form-label">${isEn ? 'Full Name' : 'Nama Lengkap'}</label>
+                <input class="form-input" data-field="header.name" value="${esc(h.name)}" placeholder="${isEn ? 'Your full name' : 'Nama lengkap Anda'}">
             </div>
             <div class="form-row">
                 <div class="form-group">
@@ -849,7 +1020,7 @@ function renderHeaderForm() {
                     <input class="form-input" data-field="header.email" value="${esc(h.email)}" placeholder="email@example.com">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Telepon</label>
+                    <label class="form-label">${isEn ? 'Phone' : 'Telepon'}</label>
                     <input class="form-input" data-field="header.phone" value="${esc(h.phone)}" placeholder="+62 812...">
                 </div>
             </div>
@@ -859,8 +1030,8 @@ function renderHeaderForm() {
                     <input class="form-input" data-field="header.website" value="${esc(h.website)}" placeholder="linkedin.com/in/...">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Alamat</label>
-                    <input class="form-input" data-field="header.address" value="${esc(h.address)}" placeholder="Kota, Provinsi">
+                    <label class="form-label">${isEn ? 'Address' : 'Alamat'}</label>
+                    <input class="form-input" data-field="header.address" value="${esc(h.address)}" placeholder="${isEn ? 'City, Country' : 'Kota, Provinsi'}">
                 </div>
             </div>
         </div>
@@ -1503,12 +1674,26 @@ function renderPreview() {
     if (h.website) contactParts.push(esc(h.website));
 
     // Header
-    if (h.name) {
-        html += `<div class="cv-header">
-            <h1>${esc(h.name)}</h1>
-            ${contactParts.length ? `<div class="cv-contact">${contactParts.join(' &nbsp;|&nbsp; ')}</div>` : ''}
-            ${h.address ? `<div class="cv-address">${esc(h.address)}</div>` : ''}
-        </div>`;
+    if (h.name || h.photo) {
+        if (h.photo) {
+            const shapeClass = `shape-${h.photoShape || 'portrait'}`;
+            html += `<div class="cv-header has-photo">
+                <div class="cv-photo-wrapper ${shapeClass}">
+                    <img src="${h.photo}" alt="Foto ${esc(h.name)}" class="cv-photo">
+                </div>
+                <div class="cv-header-content">
+                    <h1>${esc(h.name)}</h1>
+                    ${contactParts.length ? `<div class="cv-contact">${contactParts.join(' &nbsp;|&nbsp; ')}</div>` : ''}
+                    ${h.address ? `<div class="cv-address">${esc(h.address)}</div>` : ''}
+                </div>
+            </div>`;
+        } else {
+            html += `<div class="cv-header">
+                <h1>${esc(h.name)}</h1>
+                ${contactParts.length ? `<div class="cv-contact">${contactParts.join(' &nbsp;|&nbsp; ')}</div>` : ''}
+                ${h.address ? `<div class="cv-address">${esc(h.address)}</div>` : ''}
+            </div>`;
+        }
     }
 
     // Summary
